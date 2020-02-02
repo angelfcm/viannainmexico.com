@@ -27,12 +27,11 @@ if ($is_rusian_domain) {
 }
 else {
 	$hostname = "localhost";
-	$database = "viannain_site";
-	$username = "viannain_efra";
-	$password = "TD!C]z3,H_Ts";
+	$database = "siemprep_viannain";
+	$username = "siemprep_viannain";
+	$password = "<Vianna_inmexicO14/>";
 }
-
-if(strpos('localhost', $dominiolocalhost) == 0 or strpos($ip, '192.168.') === 0){
+if(strpos($dominio, 'localhost') === 0 or strpos($ip, '192.168.') === 0){
 	$hostname = "localhost:8889";
 	$database = "viannainmexico.com";
 	$username = "root"; // cambié esto antes de poner el respositorio
