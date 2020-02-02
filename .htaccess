@@ -1,0 +1,102 @@
+Options +FollowSymLinks
+
+RewriteEngine On
+
+RewriteRule ^es/$                               index.php?languaje=es
+RewriteRule ^en/$                               index.php?languaje=en
+RewriteRule ^ja/$                               index.php?languaje=ja
+RewriteRule ^ru/$                               index.php?languaje=ru
+RewriteRule ^pt/$                               index.php?languaje=pt
+RewriteRule ^it/$                               index.php?languaje=it
+RewriteRule ^es/(.*)\_.*.-.html$                index.php?languaje=es&identificador=$1
+RewriteRule ^en/(.*)\_.*.-.html$                index.php?languaje=en&identificador=$1
+RewriteRule ^ja/(.*)\_.*.-.html$                index.php?languaje=ja&identificador=$1
+RewriteRule ^ru/(.*)\_.*.-.html$                index.php?languaje=ru&identificador=$1
+RewriteRule ^pt/(.*)\_.*.-.html$                index.php?languaje=pt&identificador=$1
+RewriteRule ^it/(.*)\_.*.-.html$                index.php?languaje=it&identificador=$1
+RewriteRule ^es/(.*)\_.*.-Inscripcion.html$     index.php?languaje=es&identificador=10&id=$1
+RewriteRule ^en/(.*)\_.*.-Inscripcion.html$     index.php?languaje=en&identificador=10&id=$1
+RewriteRule ^ja/(.*)\_.*.-Inscripcion.html$     index.php?languaje=ja&identificador=10&id=$1
+RewriteRule ^ru/(.*)\_.*.-Inscripcion.html$     index.php?languaje=ru&identificador=10&id=$1
+RewriteRule ^pt/(.*)\_.*.-Inscripcion.html$     index.php?languaje=pt&identificador=10&id=$1
+RewriteRule ^it/(.*)\_.*.-Inscripcion.html$     index.php?languaje=it&identificador=10&id=$1
+RewriteRule ^es/(.*)\_.*.-asiento.html$         index.php?languaje=es&identificador=13&id=$1
+RewriteRule ^en/(.*)\_.*.-asiento.html$         index.php?languaje=en&identificador=13&id=$1
+RewriteRule ^ja/(.*)\_.*.-asiento.html$         index.php?languaje=ja&identificador=13&id=$1
+RewriteRule ^ru/(.*)\_.*.-asiento.html$         index.php?languaje=ru&identificador=13&id=$1
+RewriteRule ^pt/(.*)\_.*.-asiento.html$         index.php?languaje=pt&identificador=13&id=$1
+RewriteRule ^it/(.*)\_.*.-asiento.html$         index.php?languaje=it&identificador=13&id=$1
+RewriteRule ^es/(.*)\_.*.-asignado.html$        index.php?languaje=es&identificador=15&id=$1
+RewriteRule ^en/(.*)\_.*.-asignado.html$        index.php?languaje=en&identificador=15&id=$1
+RewriteRule ^ja/(.*)\_.*.-asignado.html$        index.php?languaje=ja&identificador=15&id=$1
+RewriteRule ^ru/(.*)\_.*.-asignado.html$        index.php?languaje=ru&identificador=15&id=$1
+RewriteRule ^pt/(.*)\_.*.-asignado.html$        index.php?languaje=pt&identificador=15&id=$1
+RewriteRule ^it/(.*)\_.*.-asignado.html$        index.php?languaje=it&identificador=15&id=$1
+RewriteRule ^es/(.*)\_.*.-mundoTH.html$         index.php?languaje=es&identificador=16&id=$1
+RewriteRule ^en/(.*)\_.*.-mundoTH.html$         index.php?languaje=en&identificador=16&id=$1
+RewriteRule ^ja/(.*)\_.*.-mundoTH.html$         index.php?languaje=ja&identificador=16&id=$1
+RewriteRule ^ru/(.*)\_.*.-mundoTH.html$         index.php?languaje=ru&identificador=16&id=$1
+RewriteRule ^pt/(.*)\_.*.-mundoTH.html$         index.php?languaje=pt&identificador=16&id=$1
+RewriteRule ^it/(.*)\_.*.-mundoTH.html$         index.php?languaje=it&identificador=16&id=$1
+RewriteRule ^es/seminarios$         index.php?languaje=es&identificador=2&id=$1
+RewriteRule ^en/seminarios$         index.php?languaje=en&identificador=2&id=$1
+RewriteRule ^ja/seminarios$         index.php?languaje=ja&identificador=2&id=$1
+RewriteRule ^ru/seminarios$         index.php?languaje=ru&identificador=2&id=$1
+RewriteRule ^pt/seminarios$         index.php?languaje=pt&identificador=2&id=$1
+RewriteRule ^it/seminarios$         index.php?languaje=it&identificador=2&id=$1
+RewriteRule ^es/inscripcion$         index.php?languaje=es&identificador=3&id=$1
+RewriteRule ^en/inscripcion$         index.php?languaje=en&identificador=3&id=$1
+RewriteRule ^ja/inscripcion$         index.php?languaje=ja&identificador=3&id=$1
+RewriteRule ^ru/inscripcion$         index.php?languaje=ru&identificador=3&id=$1
+RewriteRule ^pt/inscripcion$         index.php?languaje=pt&identificador=3&id=$1
+RewriteRule ^it/inscripcion$         index.php?languaje=it&identificador=3&id=$1
+RewriteRule ^es/pagos$         index.php?languaje=es&identificador=3&id=$1
+RewriteRule ^en/pagos$         index.php?languaje=en&identificador=3&id=$1
+RewriteRule ^ja/pagos$         index.php?languaje=ja&identificador=3&id=$1
+RewriteRule ^ru/pagos$         index.php?languaje=ru&identificador=3&id=$1
+RewriteRule ^pt/pagos$         index.php?languaje=pt&identificador=3&id=$1
+RewriteRule ^it/pagos$         index.php?languaje=it&identificador=3&id=$1
+RewriteRule ^es/sede$         index.php?languaje=es&identificador=5&id=$1
+RewriteRule ^en/sede$         index.php?languaje=en&identificador=5&id=$1
+RewriteRule ^ja/sede$         index.php?languaje=ja&identificador=5&id=$1
+RewriteRule ^ru/sede$         index.php?languaje=ru&identificador=5&id=$1
+RewriteRule ^pt/sede$         index.php?languaje=pt&identificador=5&id=$1
+RewriteRule ^it/sede$         index.php?languaje=it&identificador=5&id=$1
+RewriteRule ^es/hyt$         index.php?languaje=es&identificador=6&id=$1
+RewriteRule ^en/hyt$         index.php?languaje=en&identificador=6&id=$1
+RewriteRule ^ja/hyt$         index.php?languaje=ja&identificador=6&id=$1
+RewriteRule ^ru/hyt$         index.php?languaje=ru&identificador=6&id=$1
+RewriteRule ^pt/hyt$         index.php?languaje=pt&identificador=6&id=$1
+RewriteRule ^it/hyt$         index.php?languaje=it&identificador=6&id=$1
+RewriteRule ^es/hospedaje$         index.php?languaje=es&identificador=7&id=$1
+RewriteRule ^en/hospedaje$         index.php?languaje=en&identificador=7&id=$1
+RewriteRule ^ja/hospedaje$         index.php?languaje=ja&identificador=7&id=$1
+RewriteRule ^ru/hospedaje$         index.php?languaje=ru&identificador=7&id=$1
+RewriteRule ^pt/hospedaje$         index.php?languaje=pt&identificador=7&id=$1
+RewriteRule ^it/hospedaje$         index.php?languaje=it&identificador=7&id=$1
+RewriteRule ^es/transporte$         index.php?languaje=es&identificador=8&id=$1
+RewriteRule ^en/transporte$         index.php?languaje=en&identificador=8&id=$1
+RewriteRule ^ja/transporte$         index.php?languaje=ja&identificador=8&id=$1
+RewriteRule ^ru/transporte$         index.php?languaje=ru&identificador=8&id=$1
+RewriteRule ^pt/transporte$         index.php?languaje=pt&identificador=8&id=$1
+RewriteRule ^it/transporte$         index.php?languaje=it&identificador=8&id=$1
+RewriteRule ^es/exito$         index.php?languaje=es&identificador=12&id=$1
+RewriteRule ^en/exito$         index.php?languaje=en&identificador=12&id=$1
+RewriteRule ^ja/exito$         index.php?languaje=ja&identificador=12&id=$1
+RewriteRule ^ru/exito$         index.php?languaje=ru&identificador=12&id=$1
+RewriteRule ^pt/exito$         index.php?languaje=pt&identificador=12&id=$1
+RewriteRule ^it/exito$         index.php?languaje=it&identificador=12&id=$1
+
+
+RewriteRule ^sitemap$                 index.php?identificador=998&languaje=es
+RewriteRule ^robots.txt$                   index.php?identificador=997&languaje=es
+RewriteRule ^googleca2ead9fc0f8cf01.html$  index.php?identificador=996&languaje=es
+RewriteRule ^salir.html$                   index.php?identificador=994&languaje=es
+RewriteRule ^Mi-Cuenta$                    index.php?identificador=993&languaje=es
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the “ea-php70” package as the default “PHP” programming language.
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php70 .php .php7 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit

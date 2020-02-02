@@ -1,0 +1,503 @@
+<?php
+
+
+$CONSULTA4 = $CONEXION -> query("SELECT * FROM configuracion WHERE id = 4");
+
+
+$row_CONSULTA4 = $CONSULTA4 -> fetch_assoc();
+
+
+$CONSULTA5 = $CONEXION -> query("SELECT * FROM configuracion WHERE id = 5");
+
+
+$row_CONSULTA5 = $CONSULTA5 -> fetch_assoc();
+
+
+$CONSULTA6 = $CONEXION -> query("SELECT * FROM configuracion WHERE id = 6");
+
+
+$row_CONSULTA6 = $CONSULTA6 -> fetch_assoc();
+
+
+?>
+
+
+<!DOCTYPE html>
+
+
+<html lang="<?=$languaje?>">
+
+
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#">
+
+
+  <meta charset="utf-8">
+
+
+  <title><?=html_entity_decode($titlePagos)?></title>
+
+
+  <meta name="description" content="<?=html_entity_decode($descriptionPagos)?>">
+
+
+  
+
+
+  <meta property="og:type" content="website">
+
+
+  <meta property="og:title" content="<?=html_entity_decode($titlePagos)?>">
+
+
+  <meta property="og:description" content="<?=html_entity_decode($descriptionPagos)?>">
+
+
+  <meta property="og:url" content="<?=$rutaEstaPagina?>">
+
+
+  <meta property="og:image" content="<?=$rutaOG?>">
+
+
+  <meta property="fb:app_id" content="<?=$appID?>">
+
+
+
+
+
+  <?=$headGNRL?>
+
+
+
+
+
+  <style type="text/css">
+
+
+    /* personal & white */
+
+
+    .uk-button-paypal {
+
+
+      background-color: #fec43a;
+
+
+      color: #000!important;
+
+
+      font-size: 1em!important;
+
+
+      border: 1px solid #fec43a!important;
+
+
+    }
+
+
+    .uk-button-paypal:hover,
+
+
+    .uk-button-paypal:focus {
+
+
+      background-color: #fc3!important;
+
+
+      border: 1px solid #fc3!important;;
+
+
+      color: #000!important;
+
+
+    }
+
+
+    .uk-button-paypal:active,
+
+
+    .uk-button-paypal.uk-active {
+
+
+      background-color: #da1!important;
+
+
+      color: #000!important;
+
+
+    }
+
+
+
+
+
+  </style>
+
+
+
+
+
+</head>
+
+
+
+
+
+<body>
+
+
+<?=$header?>
+
+
+
+
+
+<!-- Cursos -->
+
+
+  <div class="uk-container">
+
+
+    <div uk-grid class="">
+
+
+      <div class="uk-width-1-3@s uk-text-right">
+
+
+        <br>
+
+
+        <img src="../img/contenido/varios/tarjetas.png">
+
+
+      </div>
+
+
+      <div class="uk-width-1-2@s">
+
+
+        <p class="uk-text-justify">
+
+
+          <?=$pagosTXT?>
+
+
+        </p>
+
+
+        <p>
+
+
+          <b class="uk-text-capitalize"><?=$correo?>:</b> contacto@mundoth.com<br>
+
+
+          <b class=""><?=$whatsapp?> :</b> <?=$telefonoSeparado?><br>
+
+
+          <b class="uk-text-capitalize"><?=$oficina?>:</b> <?=$telefonoSeparado1?>
+
+
+        </p>
+
+
+      </div>
+
+
+      <div class="uk-width-1-1 text-sm uk-text-center">
+
+
+        <h3 class="color-morado uk-text-uppercase uk-text-bold"><?=$pagosTXT1?></h3>
+
+
+      </div>
+
+
+      <div class="uk-width-1-1 text-sm uk-text-center">
+
+
+        <div uk-grid class="uk-grid-match uk-grid-large">
+
+
+          <div class="uk-width-1-2@s">
+
+
+            <div class="uk-card uk-card-default uk-border-rounded">
+
+
+              <div class="bg-gris uk-text-uppercase uk-border-rounded color-blanco padding-v-10 text-lg">
+
+
+                <?=$pagoenpesos?>
+
+
+              </div>
+
+
+              <div class="uk-card-body">
+
+
+                <p><?=$pagoenpesostxt1?></p>
+
+
+                <div>
+
+
+                  <img src="../img/contenido/varios/ico-whatsapp.jpg">
+
+
+                </div>
+
+
+                <p class="uk-text-capitalize"><?=$whatsapp?>:<br><?=$telefonoSeparado?></p>
+
+
+                <div>
+
+
+                  <img src="../img/contenido/varios/ico-envelope.jpg">
+
+
+                </div>
+
+
+                <p><span class="uk-text-capitalize"><?=$correo?>:</span><br>contacto@mundoth.com</p>
+
+
+                <?php
+
+
+                echo html_entity_decode(str_replace('select', 'select class="uk-select uk-margin"', $row_CONSULTA4['pagos'.$languaje]));
+
+
+                ?>
+
+
+              </div>
+
+
+            </div>
+
+
+          </div>
+
+
+          <div class="uk-width-1-2@s">
+
+
+            <div class="uk-card uk-card-default uk-border-rounded">
+
+
+              <div class="bg-gris uk-text-uppercase uk-border-rounded color-blanco padding-v-10 text-lg">
+
+
+                <?=$pagoendolares?>
+
+
+              </div>
+
+
+              <div class="uk-card-body">
+
+
+                <p><?=$pagoendolarestxt1?></p>
+
+
+                <p><?=$pagoendolarestxt2?></p>
+
+
+                <?php
+
+
+                echo html_entity_decode(str_replace('select', 'select class="uk-select uk-margin"', $row_CONSULTA5['pagos'.$languaje])).'
+
+
+                <br><br>
+
+
+                '.html_entity_decode(str_replace('select', 'select class="uk-select uk-margin"', $row_CONSULTA6['pagos'.$languaje]));
+
+
+                ?>
+
+
+
+
+
+              </div>
+
+
+            </div>
+
+
+          </div>
+
+
+        </div>
+
+
+      </div>
+
+
+ 
+
+
+      <div class="uk-width-1-1 margen-v-20 uk-text-center">
+
+
+        <a href="https://www.thetahealing.mx/vianna-balance-mexico.html" target="_blank" class="uk-button uk-button-paypal uk-button-large"><img src="../img/design/logo-paypal.png" alt="logo paypal"> &nbsp;&nbsp;&nbsp; <?=$segundopago?></a>
+
+
+      </div>
+
+
+      <?php 
+
+
+      if($languaje=='es'){ echo '
+
+
+      <div class="uk-width-1-1 margen-v-20 uk-text-center">
+
+
+        <a href="http://thetahealing.mx/balance-mexico-pesos.html" target="_blank" class="uk-button uk-button-paypal uk-button-large"><img src="../img/design/logo-paypal.png" alt="logo paypal"> &nbsp;&nbsp;&nbsp; REALIZAR SEGUNDO PAGO EN PESOS (Solamente si vives de América latina)</a>
+
+
+      </div>';
+
+
+      }
+
+
+      ?>
+
+
+
+
+
+      <div class="uk-width-1-1 margen-v-20 text-sm uk-text-justify">
+
+
+        <?php
+
+
+        $CONSULTA0 = $CONEXION -> query("SELECT * FROM configuracion WHERE id = 2");
+
+
+        $row_CONSULTA0 = $CONSULTA0 -> fetch_assoc();
+
+
+        echo $row_CONSULTA0['pagos'.$languaje];
+
+
+        ?>
+
+
+
+
+
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+
+
+
+  <div class="margen-v-50">
+
+
+  </div>
+
+
+
+
+
+<?=$footer?>
+
+
+
+
+
+<?=$scriptGNRL?><!--
+<form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="279WKTRF7RC7U">
+<table>
+<tr><td><input type="hidden" name="on0" value="Seminarios Primer Pago">Seminarios Primer Pago</td></tr><tr><td><select name="os0">
+	<option value="ADN Básico Instructor">ADN Básico Instructor $9,270.00 MXN</option>
+	<option value="ADN Avanzado Instructor">ADN Avanzado Instructor $7,920.00 MXN</option>
+	<option value="Indagación Profunda Instructor">Indagación Profunda Instructor $4,950.00 MXN</option>
+	<option value="Manifestación y Abundancia Instructor">Manifestación y Abundancia Instructor $4,950.00 MXN</option>
+	<option value="Tu Pareja y Tú Practicante">Tu Pareja y Tú Practicante $3,240.00 MXN</option>
+	<option value="Tu Pareja y Tú Instructor">Tu Pareja y Tú Instructor $4,950.00 MXN</option>
+	<option value="Dios y Tú Practicante">Dios y Tú Practicante $3,240.00 MXN</option>
+	<option value="Dios y Tú Instructor">Dios y Tú Instructor $4,950.00 MXN</option>
+</select> </td></tr>
+</table>
+<input type="hidden" name="currency_code" value="MXN">
+<input type="image" src="https://www.paypalobjects.com/es_XC/i/btn/btn_cart_LG.gif" border="0" name="submit" alt="PayPal, la forma más segura y rápida de pagar en línea.">
+<img alt="" border="0" src="https://www.paypalobjects.com/es_XC/i/scr/pixel.gif" width="1" height="1">
+</form>
+
+<form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="AC4CHTAUMCQ6J">
+<table>
+<tr><td><input type="hidden" name="on0" value="VENTA">VENTA</td></tr><tr><td><select name="os0">
+	<option value="Á">Á $120.00 MXN</option>
+	<option value="B">B $120.00 MXN</option>
+	<option value="C">C $120.00 MXN</option>
+</select> </td></tr>
+</table>
+<input type="hidden" name="currency_code" value="MXN">
+<input type="image" src="https://www.paypalobjects.com/es_XC/i/btn/btn_cart_LG.gif" border="0" name="submit" alt="PayPal, la forma más segura y rápida de pagar en línea.">
+<img alt="" border="0" src="https://www.paypalobjects.com/es_XC/i/scr/pixel.gif" width="1" height="1">
+</form>
+-->
+<script>
+/** Solución al error de los botónes paypal que tengan acentos en los valores de las opciones. */
+var forms = document.querySelectorAll('form');
+for (var form of forms)
+{
+  if (form.action == 'https://www.paypal.com/cgi-bin/webscr')
+  {
+    var input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'charset';
+    input.value = 'utf-8';
+    form.appendChild(input);/*
+    var input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'lc';
+    input.value = 'MX';
+    form.appendChild(input);*/
+  }
+}
+</script>
+
+
+</body>
+
+
+</html>
+
+
+<?php
+
+
+    mysqli_free_result($CONSULTA0);
+
+
+    mysqli_free_result($CONSULTA4);
+
+
+    mysqli_free_result($CONSULTA5);
+
+
+    mysqli_free_result($CONSULTA6);
+
+
+?>

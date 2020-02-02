@@ -1,0 +1,93 @@
+<manifest alg="2" build="2015.2.0.352" opt="false" iceEnabled="true" iceMarkupVersion="2" iceEnabledOptions="link,responsive" exportTarget="other" domain="www.viannainmexico.com/english" resolutions="1x" timestamp="1501213747698">
+  <folder name="css">
+    <file name="site_global.css" crc="3916556066"/>
+    <file name="master_a-p_g_-maestra.css" crc="496726218" ref="about-playa-del-carmen:hoteles:accommodation-and-transport:instructor-certifications:accommodation:index:sign-up-form:payments"/>
+    <file name="about-playa-del-carmen.css" crc="4242740426" ref="about-playa-del-carmen"/>
+    <file name="hoteles.css" crc="357537047" ref="hoteles"/>
+    <file name="accommodation-and-transport.css" crc="8057325" ref="accommodation-and-transport"/>
+    <file name="instructor-certifications.css" crc="490329656" ref="instructor-certifications"/>
+    <file name="accommodation.css" crc="272336770" ref="accommodation"/>
+    <file name="index.css" crc="201320822" ref="index"/>
+    <file name="sign-up-form.css" crc="441414187" ref="sign-up-form"/>
+    <file name="payments.css" crc="4138326969" ref="payments"/>
+  </folder>
+  <folder name="scripts">
+    <file name="jquery-1.8.3.min.js" crc="312386352" ref="index:payments:instructor-certifications:sign-up-form:hoteles:accommodation:accommodation-and-transport:about-playa-del-carmen"/>
+    <file name="museutils.js" crc="4155826306" ref="index:payments:instructor-certifications:sign-up-form:hoteles:accommodation:accommodation-and-transport:about-playa-del-carmen"/>
+    <file name="whatinput.js" crc="86476730" ref="index:payments:instructor-certifications:sign-up-form:hoteles:accommodation:accommodation-and-transport:about-playa-del-carmen"/>
+    <file name="museconfig.js" crc="483509463" ref="index:payments:instructor-certifications:sign-up-form:hoteles:accommodation:accommodation-and-transport:about-playa-del-carmen"/>
+    <file name="jquery.watch.js" crc="117772946" ref="index:payments:instructor-certifications:sign-up-form:hoteles:accommodation:accommodation-and-transport:about-playa-del-carmen"/>
+    <file name="require.js" crc="228336483" ref="index:payments:instructor-certifications:sign-up-form:hoteles:accommodation:accommodation-and-transport:about-playa-del-carmen"/>
+    <file name="jquery.musepolyfill.bgsize.js" crc="4034513494" ref="sign-up-form"/>
+    <file name="webpro.js" crc="4078243563" ref="sign-up-form"/>
+    <file name="form_check.php" crc="474517188" ref="sign-up-form"/>
+    <file name="form_throttle.php" crc="495784356" ref="sign-up-form"/>
+    <file name="form_process.php" crc="4149049960" ref="sign-up-form"/>
+    <file name="form-u1024.php" crc="4287842933" ref="sign-up-form"/>
+  </folder>
+  <folder name="images">
+    <file name="favicon.ico" crc="392880315" ref="index"/>
+    <file name="fondocuerpo.jpg" crc="3802018699" ref="index"/>
+    <file name="thethahealing11.jpg" crc="252185172" seo="true" ref="index"/>
+    <file name="fondotop.jpg" crc="4243113374" ref="index"/>
+    <file name="imagen pegada 360x240.jpg" crc="449409476" seo="true" ref="index:payments:instructor-certifications:sign-up-form:hoteles:accommodation:accommodation-and-transport:about-playa-del-carmen"/>
+    <file name="imagen pegada 324x216.jpg" crc="3864225356" seo="true" ref="index:payments:instructor-certifications:sign-up-form:hoteles:accommodation:accommodation-and-transport:about-playa-del-carmen"/>
+    <file name="imagen pegada 1600x1067.png" crc="4033588169" seo="true" ref="index:payments:instructor-certifications:sign-up-form:hoteles:accommodation:accommodation-and-transport:about-playa-del-carmen"/>
+    <file name="thetahealing_03.png" crc="4240918701" seo="true" ref="index:payments:instructor-certifications:sign-up-form:hoteles:accommodation:accommodation-and-transport:about-playa-del-carmen"/>
+    <file name="thetahealing_06.png" crc="4098893168" seo="true" ref="index:payments:instructor-certifications:sign-up-form:hoteles:accommodation:accommodation-and-transport:about-playa-del-carmen"/>
+    <file name="thetahealing_08.png" crc="4095320454" seo="true" ref="index:payments:instructor-certifications:sign-up-form:hoteles:accommodation:accommodation-and-transport:about-playa-del-carmen"/>
+    <file name="thetahealing_10.png" crc="522185699" seo="true" ref="index:payments:instructor-certifications:sign-up-form:hoteles:accommodation:accommodation-and-transport:about-playa-del-carmen"/>
+    <file name="home2.jpg" crc="417392108" ref="index"/>
+    <file name="home.png" crc="4266297551" ref="index"/>
+    <file name="instructor1.jpg" crc="464657504" ref="index"/>
+    <file name="instructor.png" crc="3829420888" ref="index"/>
+    <file name="thethahealing_26.gif" crc="199906416" seo="true" ref="index:payments:instructor-certifications:sign-up-form:hoteles:accommodation:accommodation-and-transport:about-playa-del-carmen"/>
+    <file name="paymets2.jpg" crc="964859" ref="index"/>
+    <file name="payment2.png" crc="535287580" ref="index"/>
+    <file name="pagos2_11.jpg" crc="457263756" ref="index"/>
+    <file name="1.png" crc="3782944581" ref="index"/>
+    <file name="pagos2_09.jpg" crc="26703722" ref="index"/>
+    <file name="form1.png" crc="399244422" ref="index"/>
+    <file name="34.jpg" crc="4078112080" ref="index"/>
+    <file name="footerfondo.jpg" crc="4284700697" ref="index"/>
+    <file name="thetahealing_25.png" crc="3933919026" seo="true" ref="index:payments:instructor-certifications:sign-up-form:hoteles:accommodation:accommodation-and-transport:about-playa-del-carmen"/>
+    <file name="thetahealing_27.png" crc="303497231" seo="true" ref="index:payments:instructor-certifications:sign-up-form:hoteles:accommodation:accommodation-and-transport:about-playa-del-carmen"/>
+    <file name="thetahealing_31.png" crc="4001341443" seo="true" ref="index:payments:instructor-certifications:sign-up-form:hoteles:accommodation:accommodation-and-transport:about-playa-del-carmen"/>
+    <file name="thetahealing_32.png" crc="57316115" seo="true" ref="index:payments:instructor-certifications:sign-up-form:hoteles:accommodation:accommodation-and-transport:about-playa-del-carmen"/>
+    <file name="thetahealing_33.png" crc="239527314" seo="true" ref="index:payments:instructor-certifications:sign-up-form:hoteles:accommodation:accommodation-and-transport:about-playa-del-carmen"/>
+    <file name="thetahealing_36.png" crc="4028148147" seo="true" ref="index:payments:instructor-certifications:sign-up-form:hoteles:accommodation:accommodation-and-transport:about-playa-del-carmen"/>
+    <file name="fondopagos.jpg" crc="4061573766" ref="payments:instructor-certifications:sign-up-form:hoteles:accommodation:accommodation-and-transport:about-playa-del-carmen"/>
+    <file name="new.png" crc="4221837078" seo="true" ref="instructor-certifications"/>
+    <file name="u1040-17.png" crc="369328004" ref="sign-up-form"/>
+    <file name="u1040-17-r.png" crc="3935254141" ref="sign-up-form"/>
+    <file name="u1040-17-m.png" crc="78979498" ref="sign-up-form"/>
+    <file name="u1040-17-fs.png" crc="3939754534" ref="sign-up-form"/>
+    <file name="checkboxunchecked.jpg" crc="3995141794" ref="sign-up-form"/>
+    <file name="checkboxuncheckedrollover.jpg" crc="4064281604" ref="sign-up-form"/>
+    <file name="checkboxuncheckedmousedown.jpg" crc="187163638" ref="sign-up-form"/>
+    <file name="checkboxchecked.jpg" crc="278809147" ref="sign-up-form"/>
+    <file name="checkboxcheckedrollover.jpg" crc="9876373" ref="sign-up-form"/>
+    <file name="checkboxcheckedmousedown.jpg" crc="4102437312" ref="sign-up-form"/>
+    <file name="hotel.png" crc="4160643620" seo="true" ref="accommodation"/>
+    <file name="taxi.png" crc="4004038229" seo="true" ref="accommodation:accommodation-and-transport"/>
+    <file name="svg-pegado-751692x24.svg" crc="4249274375" seo="true" ref="accommodation-and-transport"/>
+    <file name="svg pegado 751692x24_poster_.png" crc="4239192378" ref="accommodation-and-transport"/>
+    <file name="captura de pantalla 2017-05-22 a la(s) 173357.jpg" crc="4181445822" seo="true" ref="about-playa-del-carmen"/>
+    <file name="svg-pegado-122x5.svg" crc="264050190" seo="true" ref="about-playa-del-carmen"/>
+    <file name="svg pegado 122x5_poster_.png" crc="4172601595" ref="about-playa-del-carmen"/>
+    <file name="captura de pantalla 2017-03-07 a las 195046.jpg" crc="4248927182" seo="true" ref="about-playa-del-carmen"/>
+    <file name="captura de pantalla 2017-03-07 a las 195240.jpg" crc="432668534" seo="true" ref="about-playa-del-carmen"/>
+    <file name="captura de pantalla 2017-03-07 a las 195455.jpg" crc="4134679198" seo="true" ref="about-playa-del-carmen"/>
+    <file name="captura de pantalla 2017-05-22 a la(s) 174238.jpg" crc="335823844" seo="true" ref="about-playa-del-carmen"/>
+    <file name="captura de pantalla 2017-05-22 a la(s) 174150.jpg" crc="3973516473" seo="true" ref="about-playa-del-carmen"/>
+    <file name="captura de pantalla 2017-03-07 a las 195729.jpg" crc="297118707" seo="true" ref="about-playa-del-carmen"/>
+  </folder>
+  <file name="index.html" crc="27321062" seo="true" mt="1501213447958" redirect="true"/>
+  <file name="payments.html" crc="4057610550" seo="true" mt="1501213447958" redirect="true"/>
+  <file name="instructor-certifications.html" crc="4165763099" seo="true" mt="1501213692993" redirect="true"/>
+  <file name="sign-up-form.html" crc="3908145062" seo="true" mt="1501213447958" redirect="true"/>
+  <file name="hoteles.html" crc="4087328336" seo="true" mt="1501213447958" redirect="true"/>
+  <file name="accommodation.html" crc="47471488" seo="true" mt="1501213447958" redirect="true"/>
+  <file name="accommodation-and-transport.html" crc="4272900557" seo="true" mt="1501213447958" redirect="true"/>
+  <file name="about-playa-del-carmen.html" crc="2093358" seo="true" mt="1501213447958" redirect="true"/>
+</manifest>

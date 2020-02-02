@@ -1,0 +1,14 @@
+[13-Aug-2018 23:38:14 America/Mexico_City] PHP Fatal error:  Call to a member function query() on null in /home/viannain/public_html/es/inscripcion-asiento.php on line 23
+[13-Aug-2018 23:38:19 America/Mexico_City] PHP Fatal error:  Call to a member function query() on null in /home/viannain/public_html/es/inscripcion-asiento2.php on line 24
+[13-Aug-2018 23:38:30 America/Mexico_City] PHP Fatal error:  Call to a member function query() on null in /home/viannain/public_html/es/inscripcion-posterior.php on line 82
+[02-Oct-2018 21:11:37 America/Mexico_City] PHP Parse error:  syntax error, unexpected '?' in /home/viannain/public_html/es/registrar_errores_paypal.php on line 3
+[02-Oct-2018 21:13:04 America/Mexico_City] PHP Parse error:  syntax error, unexpected '?' in /home/viannain/public_html/es/registrar_errores_paypal.php on line 3
+[02-Oct-2018 21:13:24 America/Mexico_City] PHP Parse error:  syntax error, unexpected '?' in /home/viannain/public_html/es/registrar_errores_paypal.php on line 3
+[02-Oct-2018 21:14:22 America/Mexico_City] PHP Parse error:  syntax error, unexpected '?' in /home/viannain/public_html/es/registrar_errores_paypal.php on line 3
+[02-Oct-2018 21:14:31 America/Mexico_City] PHP Parse error:  syntax error, unexpected '?' in /home/viannain/public_html/es/registrar_errores_paypal.php on line 3
+[02-Oct-2018 21:16:43 America/Mexico_City] PHP Parse error:  syntax error, unexpected '?' in /home/viannain/public_html/es/registrar_errores_paypal.php on line 3
+[02-Oct-2018 21:16:46 America/Mexico_City] PHP Parse error:  syntax error, unexpected '?' in /home/viannain/public_html/es/registrar_errores_paypal.php on line 3
+[02-Oct-2018 21:17:01 America/Mexico_City] PHP Parse error:  syntax error, unexpected '?' in /home/viannain/public_html/es/registrar_errores_paypal.php on line 3
+[02-Oct-2018 21:18:04 America/Mexico_City] PHP Parse error:  syntax error, unexpected '?' in /home/viannain/public_html/es/registrar_errores_paypal.php on line 3
+[02-Oct-2018 21:19:45 America/Mexico_City] PHP Parse error:  syntax error, unexpected '?' in /home/viannain/public_html/es/registrar_errores_paypal.php on line 3
+[02-Oct-2018 21:21:02 America/Mexico_City] PHP Parse error:  syntax error, unexpected '?' in /home/viannain/public_html/es/registrar_errores_paypal.php on line 3

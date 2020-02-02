@@ -1,0 +1,10 @@
+  $('.password-revelar').click(function(){
+    $('.pass').attr('type','text');
+    $('.password-revelar').addClass('uk-hidden');
+    $('.password-ocultar').removeClass('uk-hidden');
+  });
+  $('.password-ocultar').click(function(){
+    $('.pass').attr('type','password');
+    $('.password-ocultar').addClass('uk-hidden');
+    $('.password-revelar').removeClass('uk-hidden');
+  });

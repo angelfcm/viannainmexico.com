@@ -1,0 +1,100 @@
+<manifest alg="2" build="2015.2.0.352" opt="false" iceEnabled="true" iceMarkupVersion="2" iceEnabledOptions="link,responsive" exportTarget="other" domain="www.viannainmexico.com" resolutions="1x" timestamp="1502737175587">
+  <folder name="css">
+    <file name="site_global.css" crc="3916556066"/>
+    <file name="master_a-p_g_-maestra.css" crc="159353885" ref="acerca-de-playa-del-carmen:hoteles:transporte:inscríbete:gracias-por-tu-pago:pagos:certificaciones:index:transporte-y-hospedaje"/>
+    <file name="acerca-de-playa-del-carmen.css" crc="57355271" ref="acerca-de-playa-del-carmen"/>
+    <file name="hoteles.css" crc="4270470212" ref="hoteles"/>
+    <file name="transporte.css" crc="3844858553" ref="transporte"/>
+    <file name="inscr_bete.css" crc="343801146" ref="inscríbete"/>
+    <file name="gracias-por-tu-pago.css" crc="379227141" ref="gracias-por-tu-pago"/>
+    <file name="pagos.css" crc="434049314" ref="pagos"/>
+    <file name="certificaciones.css" crc="4219977829" ref="certificaciones"/>
+    <file name="index.css" crc="425857797" ref="index"/>
+    <file name="transporte-y-hospedaje.css" crc="4110029889" ref="transporte-y-hospedaje"/>
+  </folder>
+  <folder name="scripts">
+    <file name="jquery-1.8.3.min.js" crc="312386352" ref="index:pagos:certificaciones:inscríbete:hoteles:transporte-y-hospedaje:transporte:acerca-de-playa-del-carmen:gracias-por-tu-pago"/>
+    <file name="museutils.js" crc="4155826306" ref="index:pagos:certificaciones:inscríbete:hoteles:transporte-y-hospedaje:transporte:acerca-de-playa-del-carmen:gracias-por-tu-pago"/>
+    <file name="whatinput.js" crc="86476730" ref="index:pagos:certificaciones:inscríbete:hoteles:transporte-y-hospedaje:transporte:acerca-de-playa-del-carmen:gracias-por-tu-pago"/>
+    <file name="museconfig.js" crc="483509463" ref="index:pagos:certificaciones:inscríbete:hoteles:transporte-y-hospedaje:transporte:acerca-de-playa-del-carmen:gracias-por-tu-pago"/>
+    <file name="jquery.watch.js" crc="117772946" ref="index:pagos:certificaciones:inscríbete:hoteles:transporte-y-hospedaje:transporte:acerca-de-playa-del-carmen:gracias-por-tu-pago"/>
+    <file name="require.js" crc="228336483" ref="index:pagos:certificaciones:inscríbete:hoteles:transporte-y-hospedaje:transporte:acerca-de-playa-del-carmen:gracias-por-tu-pago"/>
+    <file name="jquery.musepolyfill.bgsize.js" crc="4034513494" ref="inscríbete"/>
+    <file name="webpro.js" crc="4078243563" ref="inscríbete"/>
+    <file name="form_check.php" crc="474517188" ref="inscríbete"/>
+    <file name="form_throttle.php" crc="495784356" ref="inscríbete"/>
+    <file name="form_process.php" crc="4149049960" ref="inscríbete"/>
+    <file name="form-u1024.php" crc="389235049" ref="inscríbete"/>
+  </folder>
+  <folder name="images">
+    <file name="favicon.ico" crc="392880315" ref="index"/>
+    <file name="fondocuerpo.jpg" crc="3802018699" ref="index"/>
+    <file name="thethahealing11.jpg" crc="252185172" seo="true" ref="index"/>
+    <file name="fondotop.jpg" crc="4243113374" ref="index"/>
+    <file name="imagen pegada 360x240.jpg" crc="449409476" seo="true" ref="index:pagos:certificaciones:inscríbete:hoteles:transporte-y-hospedaje:transporte:acerca-de-playa-del-carmen:gracias-por-tu-pago"/>
+    <file name="imagen pegada 324x216.jpg" crc="3864225356" seo="true" ref="index:pagos:certificaciones:inscríbete:hoteles:transporte-y-hospedaje:transporte:acerca-de-playa-del-carmen:gracias-por-tu-pago"/>
+    <file name="imagen pegada 1600x1067.png" crc="4033588169" seo="true" ref="index:pagos:certificaciones:inscríbete:hoteles:transporte-y-hospedaje:transporte:acerca-de-playa-del-carmen:gracias-por-tu-pago"/>
+    <file name="bandera-brasil.jpg" crc="328345681" seo="true" ref="index:pagos:certificaciones:inscríbete:hoteles:transporte-y-hospedaje:transporte:acerca-de-playa-del-carmen:gracias-por-tu-pago"/>
+    <file name="bandera-de-hungria.jpg" crc="4226610110" seo="true" ref="index:pagos:certificaciones:inscríbete:hoteles:transporte-y-hospedaje:transporte:acerca-de-playa-del-carmen:gracias-por-tu-pago"/>
+    <file name="thetahealing_03.png" crc="4240918701" seo="true" ref="index:pagos:certificaciones:inscríbete:hoteles:transporte-y-hospedaje:transporte:acerca-de-playa-del-carmen:gracias-por-tu-pago"/>
+    <file name="thetahealing_06.png" crc="4098893168" seo="true" ref="index:pagos:certificaciones:inscríbete:hoteles:transporte-y-hospedaje:transporte:acerca-de-playa-del-carmen:gracias-por-tu-pago"/>
+    <file name="thetahealing_08.png" crc="4095320454" seo="true" ref="index:pagos:certificaciones:inscríbete:hoteles:transporte-y-hospedaje:transporte:acerca-de-playa-del-carmen:gracias-por-tu-pago"/>
+    <file name="thetahealing_10.png" crc="522185699" seo="true" ref="index:pagos:certificaciones:inscríbete:hoteles:transporte-y-hospedaje:transporte:acerca-de-playa-del-carmen:gracias-por-tu-pago"/>
+    <file name="pagos2_03.jpg" crc="209535814" ref="index"/>
+    <file name="pagos22_03.png" crc="298846286" ref="index"/>
+    <file name="pagos2_05.jpg" crc="3900109757" ref="index"/>
+    <file name="pagos22_05.png" crc="3794419758" ref="index"/>
+    <file name="thethahealing_26.gif" crc="199906416" seo="true" ref="index:pagos:certificaciones:inscríbete:hoteles:transporte-y-hospedaje:transporte:acerca-de-playa-del-carmen:gracias-por-tu-pago"/>
+    <file name="pagos2_07.jpg" crc="433738690" ref="index"/>
+    <file name="thetahealing_17.png" crc="24833912" ref="index"/>
+    <file name="pagos22_07.png" crc="243477856" ref="index"/>
+    <file name="pagos2_11.jpg" crc="3899220305" ref="index"/>
+    <file name="po.png" crc="4076995435" ref="index"/>
+    <file name="pagos2_09.jpg" crc="3883255622" ref="index"/>
+    <file name="pagos22_09.png" crc="4167480720" ref="index"/>
+    <file name="pagos2_13.jpg" crc="461870884" ref="index"/>
+    <file name="pagos22_13.png" crc="307126104" ref="index"/>
+    <file name="footerfondo.jpg" crc="4284700697" ref="index"/>
+    <file name="thetahealing_25.png" crc="3933919026" seo="true" ref="index:pagos:certificaciones:inscríbete:hoteles:transporte-y-hospedaje:transporte:acerca-de-playa-del-carmen:gracias-por-tu-pago"/>
+    <file name="thetahealing_27.png" crc="303497231" seo="true" ref="index:pagos:certificaciones:inscríbete:hoteles:transporte-y-hospedaje:transporte:acerca-de-playa-del-carmen:gracias-por-tu-pago"/>
+    <file name="thetahealing_31.png" crc="4001341443" seo="true" ref="index:pagos:certificaciones:inscríbete:hoteles:transporte-y-hospedaje:transporte:acerca-de-playa-del-carmen:gracias-por-tu-pago"/>
+    <file name="thetahealing_32.png" crc="57316115" seo="true" ref="index:pagos:certificaciones:inscríbete:hoteles:transporte-y-hospedaje:transporte:acerca-de-playa-del-carmen:gracias-por-tu-pago"/>
+    <file name="thetahealing_33.png" crc="239527314" seo="true" ref="index:pagos:certificaciones:inscríbete:hoteles:transporte-y-hospedaje:transporte:acerca-de-playa-del-carmen:gracias-por-tu-pago"/>
+    <file name="thetahealing_36.png" crc="4028148147" seo="true" ref="index:pagos:certificaciones:inscríbete:hoteles:transporte-y-hospedaje:transporte:acerca-de-playa-del-carmen:gracias-por-tu-pago"/>
+    <file name="fondopagos.jpg" crc="4061573766" ref="pagos:certificaciones:inscríbete:hoteles:transporte-y-hospedaje:transporte:acerca-de-playa-del-carmen"/>
+    <file name="new.png" crc="3954984640" seo="true" ref="certificaciones"/>
+    <file name="u1040-17.png" crc="369328004" ref="inscríbete"/>
+    <file name="u1040-17-r.png" crc="3935254141" ref="inscríbete"/>
+    <file name="u1040-17-m.png" crc="78979498" ref="inscríbete"/>
+    <file name="u1040-17-fs.png" crc="3939754534" ref="inscríbete"/>
+    <file name="checkboxunchecked.jpg" crc="3995141794" ref="inscríbete"/>
+    <file name="checkboxuncheckedrollover.jpg" crc="4064281604" ref="inscríbete"/>
+    <file name="checkboxuncheckedmousedown.jpg" crc="187163638" ref="inscríbete"/>
+    <file name="checkboxchecked.jpg" crc="278809147" ref="inscríbete"/>
+    <file name="checkboxcheckedrollover.jpg" crc="9876373" ref="inscríbete"/>
+    <file name="checkboxcheckedmousedown.jpg" crc="4102437312" ref="inscríbete"/>
+    <file name="hotel.png" crc="4160643620" seo="true" ref="transporte-y-hospedaje"/>
+    <file name="taxi.png" crc="4004038229" seo="true" ref="transporte-y-hospedaje:transporte"/>
+    <file name="svg-pegado-751692x24.svg" crc="4249274375" seo="true" ref="transporte"/>
+    <file name="svg pegado 751692x24_poster_.png" crc="4239192378" ref="transporte"/>
+    <file name="captura de pantalla 2017-05-22 a la(s) 173357.jpg" crc="4181445822" seo="true" ref="acerca-de-playa-del-carmen"/>
+    <file name="svg-pegado-122x5.svg" crc="264050190" seo="true" ref="acerca-de-playa-del-carmen"/>
+    <file name="svg pegado 122x5_poster_.png" crc="98387599" ref="acerca-de-playa-del-carmen"/>
+    <file name="teq.jpg" crc="7601100" seo="true" ref="acerca-de-playa-del-carmen"/>
+    <file name="captura de pantalla 2017-03-07 a las 195046.jpg" crc="4248927182" seo="true" ref="acerca-de-playa-del-carmen"/>
+    <file name="captura de pantalla 2017-03-07 a las 195240.jpg" crc="432668534" seo="true" ref="acerca-de-playa-del-carmen"/>
+    <file name="captura de pantalla 2017-03-07 a las 195455.jpg" crc="4134679198" seo="true" ref="acerca-de-playa-del-carmen"/>
+    <file name="captura de pantalla 2017-05-22 a la(s) 174238.jpg" crc="335823844" seo="true" ref="acerca-de-playa-del-carmen"/>
+    <file name="captura de pantalla 2017-05-22 a la(s) 174150.jpg" crc="3973516473" seo="true" ref="acerca-de-playa-del-carmen"/>
+    <file name="captura de pantalla 2017-03-07 a las 195729.jpg" crc="297118707" seo="true" ref="acerca-de-playa-del-carmen"/>
+  </folder>
+  <file name="index.html" crc="500503214" seo="true" mt="1502737129243" redirect="true"/>
+  <file name="pagos.html" crc="488858719" seo="true" mt="1502737129243" redirect="true"/>
+  <file name="certificaciones.html" crc="184020262" seo="true" mt="1502737129243" redirect="true"/>
+  <file name="inscríbete.html" crc="405793123" seo="true" mt="1502737129243" redirect="true"/>
+  <file name="hoteles.html" crc="3980696439" seo="true" mt="1502737129243" redirect="true"/>
+  <file name="transporte-y-hospedaje.html" crc="4278240044" seo="true" mt="1502737129243" redirect="true"/>
+  <file name="transporte.html" crc="64726533" seo="true" mt="1502737129243" redirect="true"/>
+  <file name="acerca-de-playa-del-carmen.html" crc="4286187299" seo="true" mt="1502737129243" redirect="true"/>
+  <file name="gracias-por-tu-pago.html" crc="4058904667" seo="true" mt="1502737129243" redirect="true"/>
+</manifest>
