@@ -93,10 +93,3 @@ RewriteRule ^robots.txt$                   index.php?identificador=997&languaje=
 RewriteRule ^googleca2ead9fc0f8cf01.html$  index.php?identificador=996&languaje=es
 RewriteRule ^salir.html$                   index.php?identificador=994&languaje=es
 RewriteRule ^Mi-Cuenta$                    index.php?identificador=993&languaje=es
-
-# php -- BEGIN cPanel-generated handler, do not edit
-# Set the “ea-php70” package as the default “PHP” programming language.
-<IfModule mime_module>
-  AddHandler application/x-httpd-ea-php70 .php .php7 .phtml
-</IfModule>
-# php -- END cPanel-generated handler, do not edit

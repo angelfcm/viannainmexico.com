@@ -3,7 +3,8 @@ global $ruta;
 global $rutaEstaPagina;
 global $CONEXION;
 
-$dominio=$_SERVER["SERVER_NAME"];
+$port = $_SERVER['SERVER_PORT'];
+$dominio=$_SERVER["SERVER_NAME"] . ($port ? ':' . $port : '');
 $dominio=str_replace('www.', '', $dominio);
 $ip=substr($dominio,0,-2);
 $raiz='http://'.$dominio;
@@ -31,10 +32,11 @@ else {
 	$password = "TD!C]z3,H_Ts";
 }
 
-if($dominio=='localhost' or strpos($ip, '192.168.') === 0){
-	$database = "viannainmexico";
+if(strpos('localhost', $dominiolocalhost) == 0 or strpos($ip, '192.168.') === 0){
+	$hostname = "localhost:8889";
+	$database = "viannainmexico.com";
 	$username = "root"; // cambié esto antes de poner el respositorio
-	$password = "123123"; // y esto también, solo eso.
+	$password = "root"; // y esto también, solo eso.
 	//$debug=1;
 }elseif($dominio=='efra.biz'){
 	$database = "efra_vianna";
@@ -43,4 +45,4 @@ if($dominio=='localhost' or strpos($ip, '192.168.') === 0){
 }
 
 //echo $dominio.'-'.$hostname;
-$CONEXION = mysqli_connect($hostname, $username, $password, $database) or die("Error: " . mysqli_error($CONEXION)); 
+$CONEXION = mysqli_connect($hostname, $username, $password, $database) or die("Error: " . mysqli_connect_error()); 
