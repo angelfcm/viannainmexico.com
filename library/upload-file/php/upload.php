@@ -1,5 +1,9 @@
 <?php
 $output_dir = "uploads/";
+if (!file_exists($output_dir)) {
+	mkdir($output_dir);
+}
+
 if(isset($_FILES["myfile"]))
 {
 	$ret = array();
