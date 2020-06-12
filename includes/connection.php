@@ -4,7 +4,7 @@ global $rutaEstaPagina;
 global $CONEXION;
 
 $port = $_SERVER['SERVER_PORT'];
-$dominio=$_SERVER["SERVER_NAME"] . ($port ? ':' . $port : '');
+$dominio=$_SERVER["SERVER_NAME"] . ($port && $port != 80 ? ':' . $port : '');
 $dominio=str_replace('www.', '', $dominio);
 $ip=substr($dominio,0,-2);
 $raiz='http://'.$dominio;
@@ -12,11 +12,11 @@ $urlSufijo=$_SERVER["REQUEST_URI"];
 $desarrollo=(strrpos($urlSufijo,'desarrollo'))?1:0;
 $slash=(strrpos($urlSufijo,'/'))+1;
 $ruta=$raiz.substr($urlSufijo,0,$slash);
+$rutaSinTraduccion=preg_replace('/\/[a-z]{2}\/?$/', '/', $ruta);
 $rutaEstaPagina=$raiz.$_SERVER["REQUEST_URI"];
 $hoy=date('Y-m-d');
 $ahora=date('Y-m-d H:i:s');
 $debug=0;
-
 $is_rusian_domain = false;
 
 if ($is_rusian_domain) {

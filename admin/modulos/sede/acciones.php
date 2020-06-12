@@ -360,7 +360,7 @@
 		// Guardar en la base de datos
 		if (!isset($fallo)) {
 			if(file_exists($rutaInicial.$imagenName)){
-				$sql = "INSERT INTO gallerypic (item,orden) VALUES ($id,99)";
+				$sql = "INSERT INTO gallerypic (item,orden,url) VALUES ($id,99,'')";
 				$insertar = $CONEXION->query($sql);
 				$pic = $CONEXION->insert_id;
 			}else{

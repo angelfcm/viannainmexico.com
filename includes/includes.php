@@ -63,7 +63,7 @@
 	$CONSULTA3 		= 	$CONEXION -> query("SELECT pices,picen FROM configuracion WHERE id = 10");
 	$row_CONSULTA3 	= 	$CONSULTA3 -> fetch_assoc();
 	$rutaChina		=	$ruta.'../files/'.$row_CONSULTA3['pices'];
-	$rutaOG			=	$ruta.'../img/design/'.$row_CONSULTA3['picen'];
+	$rutaOG			=	$rutaSinTraduccion.'img/design/'.$row_CONSULTA3['picen'];
 	mysqli_free_result($CONSULTA3);
 
 
