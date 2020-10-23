@@ -1,4 +1,4 @@
-<?
+<?php
   $languaje =$_GET['languaje'];
 
   $SITELANGUAJE = $CONEXION -> query("SELECT $languaje,variable FROM traduccion");

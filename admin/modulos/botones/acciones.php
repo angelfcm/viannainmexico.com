@@ -1,4 +1,4 @@
-<?
+<?php
 //%%%%%%%%%%%%%%%%%%%%%%%%%%    Editar políticas de pago   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	if(isset($_POST['botontextos'])){
 

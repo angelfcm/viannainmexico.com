@@ -1,4 +1,4 @@
-<?
+<?php
 global $ruta;
 global $rutaEstaPagina;
 global $CONEXION;

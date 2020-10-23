@@ -1,4 +1,4 @@
-<?
+<?php
 header('Content-Type: text/csv";" charset=utf-8');
 
 $caracteres_si_validos  = array('','','','','a','A','e','E','i','I','o','O','u','U','n','N','');

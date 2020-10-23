@@ -1,4 +1,4 @@
-<?
+<?php
 $seccionSQL='metadatos';
 //%%%%%%%%%%%%%%%%%%%%%%%%%%    Guardar valor de idioma    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	if (isset($_POST['editavalor'])) {

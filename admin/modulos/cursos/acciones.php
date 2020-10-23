@@ -1,4 +1,4 @@
-<?
+<?php
 	$seccion='cursos';
 	$seccionpic=$seccion.'pic';
 	$seccionmain=$seccion.'main';

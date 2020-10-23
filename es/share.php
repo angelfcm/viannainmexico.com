@@ -1,4 +1,4 @@
-<?
+<?php
 $CONSULTA1 = $CONEXION -> query("SELECT * FROM cursoasientos WHERE id = $id");
 $numRows = $CONSULTA1 ->num_rows;
 $row_CONSULTA1 = $CONSULTA1 -> fetch_assoc();
@@ -38,7 +38,7 @@ if ($numRows!=0) {
 <body>
 <?=$header?>
 
-<?
+<?php
 $claseAccordion='class="uk-open"';
 $CONSULTA1 = $CONEXION -> query("SELECT curso FROM cursoasientos WHERE id = $id");
 while($row_CONSULTA1 = $CONSULTA1 -> fetch_assoc()){

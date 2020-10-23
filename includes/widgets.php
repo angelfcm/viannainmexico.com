@@ -1,4 +1,4 @@
-<?
+<?php
 
 // FECHA
   function fechaDisplay($fechaSQL){

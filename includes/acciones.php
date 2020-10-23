@@ -1,4 +1,4 @@
-<?
+<?php
 	include '../includes/connection.php';
 	include '../includes/config.php';
 
@@ -334,8 +334,8 @@
 			$mail1 = new PHPMailer;
 			$mail2 = new PHPMailer;
 			//Tell PHPMailer to use SMTP
-			$mail1->isSMTP();
-			$mail2->isSMTP();
+			// $mail1->isSMTP();
+			// $mail2->isSMTP();
 			//Enable SMTP debugging
 			// 0 = off (for production use)
 			// 1 = client messages
@@ -503,8 +503,8 @@
 			$mail1 = new PHPMailer;
 			$mail2 = new PHPMailer;
 			//Tell PHPMailer to use SMTP
-			$mail1->isSMTP();
-			$mail2->isSMTP();
+			// $mail1->isSMTP();
+			// $mail2->isSMTP();
 			//Enable SMTP debugging
 			// 0 = off (for production use)
 			// 1 = client messages
@@ -727,7 +727,7 @@ function sendPPPaymentNotification($userID, $localPaymentID) {
 	$Brand = 'MundoTH';
 	
 	$mail = new PHPMailer;
-	$mail->isSMTP();
+	// $mail->isSMTP();
 	$mail->SMTPDebug = 0;
 	$mail->Debugoutput = 'html';
 	$mail->Host = MAIL_HOST;

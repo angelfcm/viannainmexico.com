@@ -1,4 +1,4 @@
-<?
+<?php
 $languaje=(isset($_REQUEST['languaje']))?$_REQUEST['languaje']:'es';
 $tabla='carousel'.$languaje;
 $languajeButton=array(

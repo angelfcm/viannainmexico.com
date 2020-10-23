@@ -1,4 +1,4 @@
-<?
+<?php
 $USER = $CONEXION -> query("SELECT * FROM usuarios WHERE id = $id");
 $row_USER = $USER -> fetch_assoc();
 

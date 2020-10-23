@@ -227,7 +227,7 @@ $fecha=date('Y-m-d');
 			//Create a new PHPMailer instance
 			$mail1 = new PHPMailer;
 			//Tell PHPMailer to use SMTP
-			$mail1->isSMTP();
+			// $mail1->isSMTP();
 			//Enable SMTP debugging
 			// 0 = off (for production use)
 			// 1 = client messages

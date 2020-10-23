@@ -1,4 +1,4 @@
-<?
+<?php
 	if (isset($_POST['guardar'])) {
 
 		for ($i=1; $i < 4; $i++) { 

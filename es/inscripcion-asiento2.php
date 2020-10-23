@@ -19,7 +19,7 @@
 <body>
 <?=$header?>
 
-<?
+<?php
 $claseAccordion='class="uk-open"';
 $CONSULTA1 = $CONEXION -> query("SELECT curso FROM cursoasientos WHERE usuario = $id GROUP BY curso ORDER BY curso");
 while($row_CONSULTA1 = $CONSULTA1 -> fetch_assoc()){

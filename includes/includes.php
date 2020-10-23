@@ -1,4 +1,4 @@
-<?
+<?php
 // %%%%%%%%%%%%%%%%%%%%%%%%% CONSTANTES	%%%%%%%%%%%%%%%%%%%%%%%%%%%  
 	global $caracteres_si_validos;
 	global $caracteres_no_validos;

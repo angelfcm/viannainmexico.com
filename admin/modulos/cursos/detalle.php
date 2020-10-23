@@ -1,4 +1,4 @@
-<?
+<?php
 $CONSULTA = $CONEXION -> query("SELECT * FROM $seccion WHERE id = $id");
 $row_CONSULTA = $CONSULTA -> fetch_assoc();
 

@@ -1,4 +1,4 @@
-<?
+<?php
 require_once('modulos/'.$seccion.'/acciones.php');
 
 echo $head;
