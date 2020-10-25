@@ -384,7 +384,7 @@
       </div>
       <?php if($languaje=='es'): ?>
         <div class="uk-width-1-1 margen-v-20 uk-text-center">
-          <a href="https://www.thetahealing.com/mexico-payment-pesos.html" target="_blank" class="uk-button uk-button-paypal uk-button-large"><img src="../img/design/logo-paypal.png" alt="logo paypal"> &nbsp;&nbsp;&nbsp; REALIZAR SEGUNDO PAGO EN PESOS (Solamente si vives de América latina)</a>
+          <a href="https://www.thetahealing.com/mexico-payment-pesos.html" target="_blank" class="uk-button uk-button-paypal uk-button-large"><img src="../img/design/logo-paypal.png" alt="logo paypal"> &nbsp;&nbsp;&nbsp; REALIZAR SEGUNDO PAGO EN PESOS (Solamente si vives en América latina)</a>
         </div>
       <?php endif; ?>
     </fieldset>
