@@ -380,11 +380,11 @@
       <legend class="uk-legend color-morado uk-text-uppercase  uk-text-center uk-text-bold"><?php echo $secondPaymentLabel; ?></legend>
       <div class="uk-margin uk-width-1-1 color-morado  uk-text-center"><?php echo $secondPaymentTxt; ?></div>
       <div class="uk-width-1-1 margen-v-20 uk-text-center">
-        <a href="https://www.thetahealing.mx/vianna-balance-mexico.html" target="_blank" class="uk-button uk-button-paypal uk-button-large"><img src="../img/design/logo-paypal.png" alt="logo paypal"> &nbsp;&nbsp;&nbsp; <?=$segundopago?></a>
+        <a href="https://www.thetahealing.com/mexico-final-payment.html" target="_blank" class="uk-button uk-button-paypal uk-button-large"><img src="../img/design/logo-paypal.png" alt="logo paypal"> &nbsp;&nbsp;&nbsp; <?=$segundopago?></a>
       </div>
       <?php if($languaje=='es'): ?>
         <div class="uk-width-1-1 margen-v-20 uk-text-center">
-          <a href="http://thetahealing.mx/balance-mexico-pesos.html" target="_blank" class="uk-button uk-button-paypal uk-button-large"><img src="../img/design/logo-paypal.png" alt="logo paypal"> &nbsp;&nbsp;&nbsp; REALIZAR SEGUNDO PAGO EN PESOS (Solamente si vives de América latina)</a>
+          <a href="https://www.thetahealing.com/mexico-payment-pesos.html" target="_blank" class="uk-button uk-button-paypal uk-button-large"><img src="../img/design/logo-paypal.png" alt="logo paypal"> &nbsp;&nbsp;&nbsp; REALIZAR SEGUNDO PAGO EN PESOS (Solamente si vives de América latina)</a>
         </div>
       <?php endif; ?>
     </fieldset>
