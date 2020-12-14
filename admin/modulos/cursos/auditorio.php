@@ -75,6 +75,7 @@ echo '
 		<thead>
 			<tr class="uk-text-center">
 				<td>ID Estudiante</td>
+				<td>Tipo de curso</td>
 				<td>Asiento</td>
 				<td>Gafet</td>
 				<td>Nombre</td>
@@ -111,9 +112,12 @@ echo '
 			$translationPaymentEmail = $translationPayment ? $translationPayment['payer_email'] : '';
 			
 			$pago1=($row_CONSULTA2['estatus']==1)?$row_CONSULTA['precio']:0;
+			$tipo = isset($courseTypeLangs[$row_CONSULTA2['tipo']]) ? $courseTypeLangs[$row_CONSULTA2['tipo']] : 'N/A';
+
 			echo '
 			<tr>
 				<td class="uk-text-center@m">'.$uid.'</td>
+				<td class="uk-text-center@m">'.$tipo.'</td>
 				<td class="uk-text-center@m">'.$row_CONSULTA2['asiento'].'</td>
 				<td>'.$row_CONSULTA3['gafet'].'</td>
 				<td>'.$row_CONSULTA3['nombre'].'</td>

@@ -33,7 +33,7 @@ echo '
 				<td class="uk-text-center">';
 
 			$CONSULTA = $CONEXION->query("SELECT 
-				payment_id, translation_payment_id, curso, estatus, translation_status, estatus_details, tituloes, ca.id as cursoAsientoId  
+				tipo, payment_id, translation_payment_id, curso, estatus, translation_status, estatus_details, tituloes, ca.id as cursoAsientoId  
 				FROM cursoasientos ca 
 				INNER JOIN cursos c ON ca.curso = c.id 
 				WHERE usuario = $uid ORDER BY c.orden ASC");
@@ -49,6 +49,7 @@ echo '
 				$payment_id = $row_CONSULTA['payment_id'];
 				$translation_payment_id = $row_CONSULTA['translation_payment_id'];
 				$estatus_details = "";
+				$tipo = isset($courseTypeLangs[$row_CONSULTA['tipo']]) ? $courseTypeLangs[$row_CONSULTA['tipo']] : 'N/A';
 
 				if ($estatus) {
 					$estatus_details .= "Curso pagado";
@@ -70,6 +71,7 @@ echo '
 				echo '
 					<div class="padding-v-20">
 						'.nl2br($titulo).'<br>
+						<small>Tipo: '.$tipo.'</small><br>
 						<button data-id="'.$cursoAsientoId.'" data-estatus="'.$estatus.'" class="estatus uk-button uk-button-'.$buttonClass.'">'.$textoEstatus.'</button>' . $estatus_details . '
 					</div>';
 			}

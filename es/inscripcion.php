@@ -33,7 +33,7 @@
     foreach($cursoasientos as $ca) {
       if ($ca['estatus'] == 1) {
         $isTherePaidCourse = true;
-        if (empty($ca['asiento']))
+        if (empty($ca['asiento']) && $ca['tipo'] != COURSE_TYPE_ONLINE)
           $isThereUnselectedSeatOnPaidCourses = true;
       }
     }
@@ -154,12 +154,14 @@
         $disableCourse = "";
         $paidCourseLabel_ = "";
         $courseRegisteredLabel_ = "";
+        $courseType = "";
         if ($registeredUser != null)
           foreach($cursoasientos as $selectedCourse)
             if ($selectedCourse['curso'] == $itemId)
             {
               $checked = "checked";
               $disableCourse = "disabled";
+              $courseType = $selectedCourse['tipo'];
               
               if ($selectedCourse['estatus'] == 1)
                 $paidCourseLabel_ = ' (<span style="color: green;">'.$paidLegendTxt.'</span>)';
@@ -170,7 +172,7 @@
             }
         
         echo '  
-        <div class="uk-margin">
+        <div class="uk-margin course-container">
           <div uk-grid class="uk-grid-small">
             <div>
               <input '.$disableCourse.' type="checkbox" name="curso'.$itemId.'" id="curso'.$itemId.'" value="'.$itemId.'" class="uk-checkbox course-checkbox" '.$checked.'>
@@ -179,6 +181,10 @@
               <label for="curso'.$itemId.'">
                 '.$row_CONSULTA1['titulo'.$languaje].$paidCourseLabel_.$courseRegisteredLabel_.'
               </label>
+              <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid course-type-radio" id="courseTypeControlContainer' . $itemId . '">
+                <label><input class="uk-radio" ' .$disableCourse. ' type="radio" value="' . COURSE_TYPE_FACE_TO_FACE . '" name="courseType'.$itemId.'" ' . ($courseType == COURSE_TYPE_FACE_TO_FACE ? 'checked' : '') . '> ' . $courseFaceToFace . '</label>
+                <label><input class="uk-radio" ' .$disableCourse. ' type="radio" value="' . COURSE_TYPE_ONLINE . '" name="courseType'.$itemId.'" ' . ($courseType == COURSE_TYPE_ONLINE ? 'checked' : '') . '> ' . $courseOnline . '</label>
+              </div>
             </div>
           </div>
         </div>';
@@ -248,7 +254,7 @@
             <label id="mayorlabel"><input <?php echo $disabledAttr; ?> class="uk-checkbox" type="checkbox" value="1" id="mayor" name="mayor"  <?php echo ($registeredUser != null ? 'checked' : ''); ?>><?php echo $formMayor; ?></label>
           </div>
           <div class="uk-margin">
-            <input <?php echo $disabledAttr; ?> class="uk-checkbox" type="checkbox" value="1" id="politicas" name="politicas" <?php echo ($registeredUser != null ? 'checked' : ''); ?>><?php echo $formPoliticas; ?><a href="#modal" uk-toggle class="uk-text-underline uk-text-bold"><?php echo $politicastitle;?></a>
+            <input <?php echo $disabledAttr; ?> class="uk-checkbox" type="checkbox" value="1" id="politicas" name="politicas" <?php echo ($registeredUser != null ? 'checked' : ''); ?>><?php echo $formPoliticas; ?> <a href="#modal" uk-toggle class="uk-text-underline uk-text-bold"><?php echo $politicastitle;?></a>
           </div>
         </div>
 
@@ -259,15 +265,15 @@
           <fieldset class="uk-fieldset">
             <legend class="uk-legend color-morado uk-text-bold uk-text-uppercase  uk-text-center"><?php echo $firstPaymentLabel; ?></legend>
             <div class="uk-margin uk-width-1-1 color-morado uk-text-center"><?php echo $firstPaymentMethodTxt; ?></div>
-            <div class="uk-margin uk-width-5-6@s" uk-grid style="margin-left: auto; margin-right: auto;">
-              <div class="uk-form-label uk-width-1-5" style="font-size: 18px !important;"><?php echo $typeOfPaymentLabel; ?></div>
+            <div class="uk-margin" uk-grid style="margin-left: auto; margin-right: auto;">
               <div class="uk-form-controls uk-form-controls-text">
+                <div class="uk-width-1-1 uk-margin" style="font-size: 18px !important;"><?php echo $typeOfPaymentLabel; ?></div>
                 <label><input class="uk-radio" type="radio" name="payment_option" value="DESPUES"> <?php echo $payAfterLabel; ?></label><br>
                 <label><input class="uk-radio" type="radio" name="payment_option" value="PAYPAL"> <?php echo $payWithPaypalLabel; ?></label><br>
-                <div class="uk-card uk-card-default uk-card-body" id="payment-paypal-content" style="display: none">
+                <div class="uk-card uk-card-default uk-card-body uk-card-small uk-margin" id="payment-paypal-content" style="display: none">
                 </div>
                 <label><input class="uk-radio" type="radio" name="payment_option" value="DEPOSITO"> <?php echo $payWithDepositLabel; ?></label><br>
-                <div class="uk-card uk-card-default uk-card-body" id="payment-bank-content" style="display: none">
+                <div class="uk-card uk-card-default uk-card-body uk-card-small uk-margin" id="payment-bank-content" style="display: none">
                     MundoTH
                     <p>
                       <b class="uk-text-capitalize"><?=$correo?>:</b> contacto@mundoth.com<br>
@@ -276,7 +282,7 @@
                     </p>
                 </div>
                 <label><input class="uk-radio" type="radio" name="payment_option" value="EFECTIVO"> <?php echo $payWithCashLabel; ?></label><br>
-                <div class="uk-card uk-card-default uk-card-body" id="payment-cash-content" style="display: none; max-width:600px;">
+                <div class="uk-card uk-card-default uk-card-body uk-card-small uk-margin" id="payment-cash-content" style="display: none; max-width:600px;">
                 <?php echo $payWithCashTxt; ?>
                 </div>
               </div>
@@ -499,6 +505,7 @@
     var traductor=$('#traductor').val();
     var materialLang = $('#materialLang').val();
     var curso=$('#curso').val();
+    var courseType = $('#courseType').val();
     var fallo=0;
     if (mayor==false) { alert("<?=html_entity_decode($formMayorVerify)?>"); fallo=1; $('#mayorlabel').css("color","red"); }else{ $('#mayorlabel').css("color","#333"); }
     if (politicas==false && fallo==0) { alert("Debe aceptar las políticas de cancelación"); fallo=1; $('#politicaslabel').css("color","red"); }else{ $('#politicaslabel').css("color","#333"); }
@@ -514,6 +521,20 @@
     if (direccion==false && fallo==0) { alert("<?=html_entity_decode($formVerifyTxt)?> <?=html_entity_decode($direccion)?>"); fallo=1; $('#direccion').addClass("uk-form-danger"); $('#direccion').focus(); }else{ $('#direccion').removeClass("uk-form-danger"); }
     if (pais==false && fallo==0) { alert("<?=html_entity_decode($formVerifyTxt)?> <?=html_entity_decode($pais)?>"); fallo=1; $('#pais').addClass("uk-form-danger"); $('#pais').focus(); }else{ $('#pais').removeClass("uk-form-danger"); }
     if (invita==false && fallo==0) { alert("<?=html_entity_decode($formVerifyTxt)?> <?=html_entity_decode($formInvita)?>"); fallo=1; $('#invita').addClass("uk-form-danger"); $('#invita').focus(); }else{ $('#invita').removeClass("uk-form-danger"); }
+    $('.course-checkbox').each(function (i, el) {
+      if (el.checked) {
+        var courseTypeCtId = '#courseTypeControlContainer' + el.value;
+        var courseType = $('#courseTypeControlContainer' + el.value).find('input:checked').val();
+        if (!courseType && fallo==0) {
+          alert("<?=html_entity_decode($formVerifyTxt)?> <?=html_entity_decode($courseTypeLabel)?>");
+          fallo=1;
+          $(courseTypeCtId).addClass("uk-form-danger");
+          $(courseTypeCtId).find('input').focus();
+        } else{
+          $(courseTypeCtId).removeClass("uk-form-danger");
+        }
+      }
+    });
     // Verifies that translation of the course is selected when it is checked as yes.
     if ($("#form")[0].traduc.value == "1" && fallo==0) {
       if ($.isEmptyObject(traductor) || traductor == 'No') {
@@ -604,6 +625,7 @@
   var $submitButton = $('#send');
   var $paypalButtonsContainer = $('#paypal-buttons-container');
   var $insCourseCheckboxes = $('.course-checkbox');
+  var $insCourseTypeRadios = $('.course-type-radio');
  
   $(function() {
     initializeProductSection('#1st-payment-section');
@@ -629,6 +651,10 @@
     var $paymentOption = $(':radio', ctx);
     $paymentOption.on('change', function(){updateSelectedPaymentMethod.call(this, ctx)});
     $insCourseCheckboxes.on('change', function(){updateSelectedCourses.call(this, ctx)});
+    $insCourseTypeRadios.on('change ', function(){
+      var el = $(this).parents('.course-container').eq(0).find('[name^="curso"]')[0];
+      updateSelectedCourses.call(el, ctx);
+    });
 
     var secondOption = $('[name="trans_payment_option"]').val();
   }
@@ -669,6 +695,13 @@
     var $paymentPaypalContent = $('#payment-paypal-content', ctx);
 
     var $coursesToAdd = $.map($insCourseCheckboxes.get(), function(el) {
+      $('#courseTypeControlContainer' + el.value)[el.checked ? 'show' : 'hide']();
+      var courseType = $('#courseTypeControlContainer' + el.value).find('input:checked').val();
+      var courseTypeTrans = {
+        '<?php echo COURSE_TYPE_FACE_TO_FACE; ?>': '<?php echo $courseFaceToFace ?>',
+        '<?php echo COURSE_TYPE_ONLINE; ?>': '<?php echo $courseOnline ?>',
+      };
+
       if (!el.checked)
         return;
       var course = null;
@@ -691,13 +724,15 @@
 
       var courseHtml = '<label ' + (isPaid ? 'style="text-decoration: line-through; line-height: 2;"' : 'style="line-height: 2;"') + '>'
         + '<input class="uk-checkbox product_checkbox" type="checkbox" name="courses[' + course.id + ']" value="'+ course.id +'" ' + (isPaid ? ' style="visibility: hidden"' : '') + '> ' 
-        + course['titulo<?php echo $languaje; ?>'] + ' <span style="font-size: 70%"><strong>($'
+        + course['titulo<?php echo $languaje; ?>']
+        + ' <span style="font-size: 80%"><strong>[$'
 <?php if ($languaje == 'es'): ?>
         + (isTranslation ? parseFloat(course.precio_traduccion_usd) + ' USD' : parseFloat(course.precio) + ' MXN') 
 <?php else: ?>
         + (isTranslation ? parseFloat(course.precio_traduccion_usd) + ' USD' : parseFloat(course.preciousd) + 'USD')
 <?php endif; ?>
-        + ')</strong></span></label>'
+        + (courseTypeTrans[courseType] ? ' - ' + courseTypeTrans[courseType] : '')
+        + ']</strong></span></label>'
         + (isPaid ? ' <span style="color: green;"><?php echo $paidLegendTxt; ?></span>' : '')
         + '<br />';
 

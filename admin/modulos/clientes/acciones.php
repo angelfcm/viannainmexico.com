@@ -157,13 +157,13 @@ $fecha=date('Y-m-d');
 		$row_CONSULTA0 = $CONSULTA0 -> fetch_assoc();
 
 		// Información del curso
-		$CONSULTA1 = $CONEXION -> query("SELECT * FROM cursoasientos WHERE id = $id");
+		$CONSULTA1 = $CONEXION -> query("SELECT * FROM cursoasientos WHERE usuario = $id");
 		$row_CONSULTA1 = $CONSULTA1 -> fetch_assoc();
 
 		$CONSULTA2 = $CONEXION -> query("SELECT * FROM cursos WHERE id = $cursoID");
 		$row_CONSULTA2 = $CONSULTA2 -> fetch_assoc();
-		$cursoTxt=$row_CONSULTA2['tituloes'];
-
+		$tipo = isset($courseTypeLangs[$row_CONSULTA1['tipo']]) ? $courseTypeLangs[$row_CONSULTA1['tipo']] : 'N/A';
+		$cursoTxt=$row_CONSULTA2['tituloes'] . "<br>$courseTypeLabel: " . $tipo .'<br>';
 		$ConsultaDatos = $CONEXION -> query("SELECT * FROM correos WHERE id = 3");
 		$row_ConsultaDatos = $ConsultaDatos -> fetch_assoc();
 
@@ -176,8 +176,7 @@ $fecha=date('Y-m-d');
 		$cuerpoSQL=str_replace('%botonPago%', '<p><span class="uk-button"><a href="'.$ruta.'../es/inscripcion">Realizar pago</a></span></p>', $cuerpoSQL);
 		$cuerpoSQL=str_replace('%asiento%', $asiento, $cuerpoSQL);
 		$cuerpoSQL=str_replace('%curso%', $cursoTxt, $cuerpoSQL);
-		$cuerpoSQL=str_replace('../img/design/logo-mundo.png', 'http://' . DOMINIO . '/img/design/logo-mundo.png', $cuerpoSQL);
-
+		$cuerpoSQL=str_replace('../img/design/logo-mundo.png', 'http://' . DOMAIN . '/img/design/logo-mundo.png', $cuerpoSQL);
 
 		$traductor=($row_CONSULTA1['traductor']=='')?'No':'S&iacute;, '.$row_CONSULTA1['traductor'];
 

@@ -108,8 +108,8 @@ switch ($identificador) {
 
 	case 14:
 		$nav3='uk-active';
-		$mensajeClase='success';
-		$mensaje='<h1>No se pudo registrar.<br>Favor de intentar de nuevo</h2>';
+		$mensajeClase='danger';
+		$mensaje=isset($_GET['captcha_failed']) && $_GET['captcha_failed'] ? 'Error de validación captcha, intenta de nuevo.' : 'No se pudo registrar.<br>Favor de intentar de nuevo.';
 		include 'includes/includes.php';
 		include 'es/inscripcion-posterior.php';
 		break;

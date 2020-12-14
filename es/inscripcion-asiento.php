@@ -22,7 +22,8 @@
 <?php
 require_once 'includes/languaje.php';
 $rutaInsc =	$ruta.'inscripcion';
-$paidCourses = $CONEXION -> query("SELECT curso FROM cursoasientos WHERE usuario = $id AND estatus = 1 GROUP BY curso ORDER BY curso")->fetch_all(MYSQLI_ASSOC);
+$typeFaceToFace = COURSE_TYPE_FACE_TO_FACE;
+$paidCourses = $CONEXION -> query("SELECT curso FROM cursoasientos WHERE usuario = $id AND estatus = 1 AND tipo = $typeFaceToFace GROUP BY curso ORDER BY curso")->fetch_all(MYSQLI_ASSOC);
 ?>
 
 <?php if(count($paidCourses) == 0): ?>

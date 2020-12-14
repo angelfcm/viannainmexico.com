@@ -1,6 +1,7 @@
 <?php
 	include '../includes/connection.php';
 	include '../includes/config.php';
+	include '../includes/languaje.php';
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%    Login    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	if (isset($_POST['login'])) {
@@ -74,7 +75,6 @@
 		$result=json_decode($result,true);
 
 		$captchaPassed = $result["success"] ? true : false;
-
 		if($captchaPassed || $isAjax){ 
 			$USER = $CONEXION -> query("SELECT * FROM usuarios WHERE email = '$email'");
 			$numRows = $USER ->num_rows;
@@ -90,15 +90,16 @@
 						$curso=$row_CONSULTA1['id'];
 						$pago1=$row_CONSULTA1['precio'];
 						if(isset($_POST['curso'.$curso])){
-							$sql = "INSERT INTO cursoasientos (curso,usuario,traductor,material,metodo1,translation_payment_option)".
-								"VALUES ('$curso','$id','$traductor','$material', '$paymentOption', '$translationPaymentOption')";
+							$courseType = isset($_POST['courseType'.$curso]) ? $_POST['courseType'.$curso] : 'NULL';
+							$sql = "INSERT INTO cursoasientos (curso,tipo,usuario,traductor,material,metodo1,translation_payment_option)".
+								"VALUES ('$curso', $courseType, '$id','$traductor','$material', '$paymentOption', '$translationPaymentOption')";
 							$insertar = $CONEXION->query($sql);
 						}
 					}
 				}
 				
 				sendInscription($id, $languaje);
-			}else{
+			}else{ 
 				$row_USER = $USER -> fetch_assoc();
 				$id=$row_USER['id'];
 /*
@@ -111,15 +112,16 @@
 				while($row_CONSULTA1 = $CONSULTA1 -> fetch_assoc()){
 					$curso=$row_CONSULTA1['id'];
 					if(isset($_POST['curso'.$curso])){
+						$courseType = isset($_POST['courseType'.$curso]) ? $_POST['courseType'.$curso] : 'NULL';
 						$CONSULTA2 = $CONEXION -> query("SELECT id FROM cursoasientos WHERE curso = $curso and usuario = $id");
 						$numRowsCursos = $CONSULTA2 ->num_rows;
 						if ($numRowsCursos==0) {
-							$sql = "INSERT INTO cursoasientos (curso,usuario,traductor,material,metodo1,translation_payment_option)".
-								"VALUES ('$curso','$id','$traductor','$material', '$paymentOption', '$translationPaymentOption')";
+							$sql = "INSERT INTO cursoasientos (curso,tipo,usuario,traductor,material,metodo1,translation_payment_option)".
+								"VALUES ('$curso', $courseType, '$id','$traductor','$material', '$paymentOption', '$translationPaymentOption')";
 							$insertar = $CONEXION->query($sql);
 						}
 						else {
-							$CONEXION -> query("UPDATE cursoasientos SET traductor = '$traductor', material = '$material', metodo1 = '$paymentOption', translation_payment_option = '$translationPaymentOption' WHERE curso = $curso and usuario = $id");
+							$CONEXION -> query("UPDATE cursoasientos SET tipo = $courseType, traductor = '$traductor', material = '$material', metodo1 = '$paymentOption', translation_payment_option = '$translationPaymentOption' WHERE curso = $curso and usuario = $id");
 						}
 					}
 				}
@@ -152,7 +154,7 @@
 				http_response_code (401);
 				echo json_encode(['error' => 'No pasó la verificación del captcha']);
 			}
-			else header('location: '.$BASE_URL.'/'.$languaje.'/14_fallo-.html');
+			else header('location: '.$BASE_URL.'/'.$languaje.'/14_fallo-.html?captcha_failed=1');
 		}
 	}
 
@@ -230,6 +232,8 @@
 		global $destinatario1;
 		global $mailBGcolor;
 		global $ruta;
+		global $courseTypeLabel;
+		global $courseTypeLangs;
 
 		$fallo=0;
 		$mensaje="<b>Ocurrió un error:</b>";
@@ -247,7 +251,8 @@
 			$curso=$row_CONSULTA1['curso'];
 			$CONSULTA2 = $CONEXION -> query("SELECT * FROM cursos WHERE id = $curso");
 			$row_CONSULTA2 = $CONSULTA2 -> fetch_assoc();
-			$cursoTxt.=$num.' - '.$row_CONSULTA2['tituloes'] . '<br>'; //.' - $'.number_format($row_CONSULTA2['precio'],2).' MXN<br>';
+			$tipo = isset($courseTypeLangs[$row_CONSULTA1['tipo']]) ? $courseTypeLangs[$row_CONSULTA1['tipo']] : 'N/A';
+			$cursoTxt.=$num.' - '.$row_CONSULTA2['tituloes'] . "<br>$courseTypeLabel: " . $tipo .'<br>'; //.' - $'.number_format($row_CONSULTA2['precio'],2).' MXN<br>';
 			$traductor=$row_CONSULTA1['traductor'];
 		}
 		if($traductor!='No'){ $cursoTxt.='<br>* &nbsp; Traducci&oacute;n: $25 USD por d&iacute;a'; }
@@ -416,6 +421,8 @@
 		global $mailBGcolor;
 		global $logoMail;
 		global $ruta;
+		global $courseTypeLangs;
+		global $courseTypeLabel;
 
 		$fallo=0;
 		$mensaje="<b>Ocurrió un error:</b>";
@@ -434,7 +441,8 @@
 		$cursoTxt='';
 		$CONSULTA2 = $CONEXION -> query("SELECT tituloes FROM cursos WHERE id = $curso");
 		$row_CONSULTA2 = $CONSULTA2 -> fetch_assoc();
-		$cursoTxt.=$row_CONSULTA2['tituloes'].'<br>';
+		$tipo = isset($courseTypeLangs[$row_CONSULTA['tipo']]) ? $courseTypeLangs[$row_CONSULTA['tipo']] : 'N/A';
+		$cursoTxt.=$row_CONSULTA2['tituloes'].'<br>' . "<br>$courseTypeLabel: " . $tipo .'<br>';
 
 
 		$ConsultaDatos = $CONEXION -> query("SELECT * FROM correos WHERE id = 2");
@@ -634,6 +642,8 @@ function sendPPPaymentNotification($userID, $localPaymentID) {
 	global $destinatario1;
 	global $mailBGcolor;
 	global $ruta;
+	global $courseTypeLangs;
+	global $courseTypeLabel;
 	
 	$asunto = 'PAGO realizado desde el sitio web';
 	$q = $CONEXION -> query("SELECT * FROM usuarios WHERE id = $userID");
@@ -654,7 +664,8 @@ function sendPPPaymentNotification($userID, $localPaymentID) {
 		} else
 			$paymentLabel = '<span style="color: green">Pago de Traducci&oacute;n</span>';
 
-		$paymentCoursesHTML .= '<li>' . $pCourse['tituloes'] . ' (' . $paymentLabel . ')</li>';
+		$tipo = isset($courseTypeLangs[$pCourse['tipo']]) ? $courseTypeLangs[$pCourse['tipo']] : 'N/A';
+		$paymentCoursesHTML .= '<li>' . $pCourse['tituloes'] . ' (' . $paymentLabel . ")<br>$courseTypeLabel: $tipo</li>";
 		if ($traductor == 'No')
 			$traductor = $pCourse['traductor'];
 	}

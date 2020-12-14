@@ -25,7 +25,7 @@ echo '
 
   <div class="uk-container uk-text-center">
     <div>
-      <h1 style="text-transform: uppercase">'.$pagoExitoso.'</h1>
+      <h1 style="text-transform: uppercase">'.$mensaje.'</h1>
     </div>
     <div>
       <!-- <p>'.$paracompletarregistro.'</p> -->

@@ -3,6 +3,10 @@
 /* %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 					CONFIGURACIÓN
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  */
+
+	define('COURSE_TYPE_FACE_TO_FACE', 1);
+	define('COURSE_TYPE_ONLINE', 2);
+
 	define('IS_RUSSIAN_DOMAIN', false);
 
 	if (IS_RUSSIAN_DOMAIN) {
@@ -34,7 +38,7 @@
 	$dominioString=DOMAIN;
 	$BASE_URL = "http://".DOMAIN;
 	if ($debug)
-		$BASE_URL = 'http://localhost/'.DOMAIN;
+		$BASE_URL = 'http://localhost:8888/'.DOMAIN;
 
 
 	$REMITENTE = $CONEXION -> query("SELECT pices,picen FROM configuracion WHERE id = 11");

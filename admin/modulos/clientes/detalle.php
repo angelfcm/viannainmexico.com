@@ -52,9 +52,14 @@ echo '
 		if ($translationPayment != null)
 			$translationPaymentLabel = '<p><span style="color: green"><strong>Traducci&oacute;n</strong> pagada con PayPal: </span><br>' . $translationPayment['payer_email'] . '<br><small>Monto de <strong>$' . $translationPayment['total'] . ' ' . $translationPayment['currency'] . '</strong> el ' . $translationPayment['created_at'] . '</small></p>';
 
+		$tipo = isset($courseTypeLangs[$row_CONSULTA1['tipo']]) ? $courseTypeLangs[$row_CONSULTA1['tipo']] : 'N/A';
+
 		echo '
 		<p></p>
-		<p><span class="uk-text-muted">Nombre:</span> <strong>'.$row_CONSULTA['tituloes'].'</strong></p>
+		<p>
+			<span class="uk-text-muted">Nombre:</span> <strong>'.$row_CONSULTA['tituloes'].'</strong>
+			<br /><span class="uk-text-muted">Tipo de curso:</span> '.$tipo.'
+		</p>
 		'.$paymentLabel.$translationPaymentLabel.'
 		<a href="#" class="dardebaja uk-button uk-button-danger uk-button-small" data-id="'.$row_CONSULTA1['id'].'">Dar de baja del curso</a></p>
 		<p>
