@@ -426,6 +426,11 @@
 	  background-color: #000!important;
 	  color: #fff!important;
 	}
+	.uk-button-personal:disabled {
+	  background-color: rgb(136, 136, 136)!important;
+	  color: rgb(226, 226, 226)!important;
+	  opacity: 0.8;
+	}
 	.uk-countdown-number{
 		font-size: 3em!important;
 	}

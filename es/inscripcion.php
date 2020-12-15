@@ -119,7 +119,7 @@
           <input type="text" id="gafet" name="gafet" class="uk-input"<?php echo $registeredUser != null ? 'value="' . $registeredUser['gafet'] . '" readonly' : ''; ?>>
           <br><br>
           <label><?php echo $nacimiento; ?></label>
-          <input autocomplete="off" type="text" id="nacimiento" name="nacimiento" class="uk-input" <?php echo $registeredUser != null ? 'value="' . $registeredUser['nacimiento'] . '" readonly' : ''; ?>>
+          <input autocomplete="off" type="text" id="nacimiento" name="nacimiento" class="uk-input"<?php echo $registeredUser != null ? 'value="' . $registeredUser['nacimiento'] .'"' : ''; ?>>
           <br><br>
           <label><?php echo $telefono; ?></label>
           <input type="text" id="telefono" name="telefono" class="uk-input" <?php echo $registeredUser != null ? 'value="' . $registeredUser['telefono'] . '" readonly' : ''; ?>>
@@ -152,6 +152,7 @@
         
         $checked = "";
         $disableCourse = "";
+        $disableTypeCourse = "";
         $paidCourseLabel_ = "";
         $courseRegisteredLabel_ = "";
         $courseType = "";
@@ -162,6 +163,7 @@
               $checked = "checked";
               $disableCourse = "disabled";
               $courseType = $selectedCourse['tipo'];
+              $disableTypeCourse = $selectedCourse['tipo'] ? 'disabled' : '';
               
               if ($selectedCourse['estatus'] == 1)
                 $paidCourseLabel_ = ' (<span style="color: green;">'.$paidLegendTxt.'</span>)';
@@ -176,14 +178,16 @@
           <div uk-grid class="uk-grid-small">
             <div>
               <input '.$disableCourse.' type="checkbox" name="curso'.$itemId.'" id="curso'.$itemId.'" value="'.$itemId.'" class="uk-checkbox course-checkbox" '.$checked.'>
+              ' . ($checked ? '<input type="hidden" name="curso'.$itemId.'" value="'.$itemId.'">' : '') . '
             </div>
             <div class="uk-width-expand">
               <label for="curso'.$itemId.'">
                 '.$row_CONSULTA1['titulo'.$languaje].$paidCourseLabel_.$courseRegisteredLabel_.'
               </label>
               <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid course-type-radio" id="courseTypeControlContainer' . $itemId . '">
-                <label><input class="uk-radio" ' .$disableCourse. ' type="radio" value="' . COURSE_TYPE_FACE_TO_FACE . '" name="courseType'.$itemId.'" ' . ($courseType == COURSE_TYPE_FACE_TO_FACE ? 'checked' : '') . '> ' . $courseFaceToFace . '</label>
-                <label><input class="uk-radio" ' .$disableCourse. ' type="radio" value="' . COURSE_TYPE_ONLINE . '" name="courseType'.$itemId.'" ' . ($courseType == COURSE_TYPE_ONLINE ? 'checked' : '') . '> ' . $courseOnline . '</label>
+                <label><input class="uk-radio" ' .$disableTypeCourse. ' type="radio" value="' . COURSE_TYPE_FACE_TO_FACE . '" name="courseType'.$itemId.'" ' . ($courseType == COURSE_TYPE_FACE_TO_FACE ? 'checked' : '') . '> ' . $courseFaceToFace . '</label>
+                <label><input class="uk-radio" ' .$disableTypeCourse. ' type="radio" value="' . COURSE_TYPE_ONLINE . '" name="courseType'.$itemId.'" ' . ($courseType == COURSE_TYPE_ONLINE ? 'checked' : '') . '> ' . $courseOnline . '</label>
+                ' . ($courseType ? '<input type="hidden" name="courseType'.$itemId.'" value="'.$courseType.'">' : '') . '
               </div>
             </div>
           </div>
@@ -320,7 +324,7 @@
         </div>
 
         <div class="uk-margin uk-width-1-1" id="captcha-container">
-          <div class="g-recaptcha" data-sitekey="6LfemlQUAAAAAHUZ0-iNKN35hHJCCcukHimwMhVy"></div>
+          <div class="g-recaptcha" data-sitekey="6LfemlQUAAAAAHUZ0-iNKN35hHJCCcukHimwMhVy" data-callback="captchaSuccess" data-error-callback="captchaError" data-expired-callback="captchaError"></div>
         </div>
         <style>
           .g-recaptcha > div {
@@ -461,7 +465,7 @@
       yearRange: "1920:"
     });
     $("#nacimiento").datepicker( "option", "dateFormat", "dd-mm-yy" );
-    $("#nacimiento").datepicker( "setDate", "1-1-1980" );
+    $("#nacimiento").datepicker( "setDate", $("#nacimiento").attr('value') );
   } );
 </script>
 
@@ -506,6 +510,7 @@
     var materialLang = $('#materialLang').val();
     var curso=$('#curso').val();
     var courseType = $('#courseType').val();
+    var metodo = $('[name=payment_option]:checked').val();
     var fallo=0;
     if (mayor==false) { alert("<?=html_entity_decode($formMayorVerify)?>"); fallo=1; $('#mayorlabel').css("color","red"); }else{ $('#mayorlabel').css("color","#333"); }
     if (politicas==false && fallo==0) { alert("Debe aceptar las políticas de cancelación"); fallo=1; $('#politicaslabel').css("color","red"); }else{ $('#politicaslabel').css("color","#333"); }
@@ -521,6 +526,7 @@
     if (direccion==false && fallo==0) { alert("<?=html_entity_decode($formVerifyTxt)?> <?=html_entity_decode($direccion)?>"); fallo=1; $('#direccion').addClass("uk-form-danger"); $('#direccion').focus(); }else{ $('#direccion').removeClass("uk-form-danger"); }
     if (pais==false && fallo==0) { alert("<?=html_entity_decode($formVerifyTxt)?> <?=html_entity_decode($pais)?>"); fallo=1; $('#pais').addClass("uk-form-danger"); $('#pais').focus(); }else{ $('#pais').removeClass("uk-form-danger"); }
     if (invita==false && fallo==0) { alert("<?=html_entity_decode($formVerifyTxt)?> <?=html_entity_decode($formInvita)?>"); fallo=1; $('#invita').addClass("uk-form-danger"); $('#invita').focus(); }else{ $('#invita').removeClass("uk-form-danger"); }
+    if (!metodo && fallo==0) { alert("<?=html_entity_decode($formVerifyTxt)?> <?=html_entity_decode($typeOfPaymentLabel)?>"); fallo=1; $('[name=payment_option]').addClass("uk-form-danger"); $('[name=payment_option]').focus(); }else{ $('[name=payment_option]').removeClass("uk-form-danger"); }
     $('.course-checkbox').each(function (i, el) {
       if (el.checked) {
         var courseTypeCtId = '#courseTypeControlContainer' + el.value;
@@ -659,6 +665,18 @@
     var secondOption = $('[name="trans_payment_option"]').val();
   }
 
+  var isCaptchaSuccess = false;
+
+  function captchaSuccess() {
+    isCaptchaSuccess = true;
+    $('#send').attr('disabled', false);
+  }
+
+  function captchaError() {
+    isCaptchaSuccess = false;
+    $('#send').attr('disabled', true);
+  }
+
   function updateSelectedPaymentMethod(ctx) {
     var $paymentPaypalContent = $('#payment-paypal-content', ctx);
     var $paymentBankContent = $('#payment-bank-content', ctx);
@@ -670,6 +688,9 @@
     $paymentCashContent.hide();
     $submitButton.show();
     $captchaCt.show();
+    if (!isCaptchaSuccess) {
+      $('#send').attr('disabled', true);
+    }
 
     var opt = this.value;
     if (opt == 'PAYPAL')
@@ -687,6 +708,7 @@
       $submitButton.hide();
       $paypalButtonsContainer.show();
       $captchaCt.hide(); // doesnt need a captcha if user will pay.
+      $('#send').attr('disabled', false);
     }
   }
 

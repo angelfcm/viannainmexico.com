@@ -107,6 +107,8 @@
 					"VALUES ('$alta','$nombre','$apellido','$email','$gafet','$nacimiento','$telefono','$emergencia','$direccion','$pais','$invita')";
 				$CONEXION->query($sql);
 */
+				$sql = "UPDATE usuarios SET nacimiento = '$nacimiento' WHERE id = '$id'";
+				$CONEXION->query($sql);
 				// Agregar cursos seleccionados
 				$CONSULTA1 = $CONEXION -> query("SELECT id FROM cursos");
 				while($row_CONSULTA1 = $CONSULTA1 -> fetch_assoc()){
