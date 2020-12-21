@@ -4,10 +4,10 @@ global $rutaEstaPagina;
 global $CONEXION;
 
 $port = $_SERVER['SERVER_PORT'];
-$dominio=$_SERVER["SERVER_NAME"] . ($port && $port != 80 ? ':' . $port : '');
+$dominio=$_SERVER["SERVER_NAME"] . ($port && $port != 80 && $port != 443 ? ':' . $port : '');
 $dominio=str_replace('www.', '', $dominio);
 $ip=substr($dominio,0,-2);
-$raiz='http://'.$dominio;
+$raiz=($port == 443 ? 'https://' : 'http://') .$dominio;
 $urlSufijo=$_SERVER["REQUEST_URI"];
 $desarrollo=(strrpos($urlSufijo,'desarrollo'))?1:0;
 $slash=(strrpos($urlSufijo,'/'))+1;
