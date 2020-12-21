@@ -7,7 +7,7 @@
 	define('COURSE_TYPE_FACE_TO_FACE', 1);
 	define('COURSE_TYPE_ONLINE', 2);
 
-	define('IS_RUSSIAN_DOMAIN', false);
+	define('IS_RUSSIAN_DOMAIN', $_SERVER["SERVER_NAME"] == 'viannainmexico.ru');
 
 	if (IS_RUSSIAN_DOMAIN) {
 		define('DOMAIN', "viannainmexico.ru");

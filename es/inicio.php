@@ -45,17 +45,17 @@
         while ($row_CAROUSEL = $CAROUSEL -> fetch_assoc()) {
           if (IS_RUSSIAN_DOMAIN) {
             $dots.='
-                <li><img src="http://viannainmexico.com/img/contenido/'.$tabla.'/'.$row_CAROUSEL['id'].'-xs.jpg" alt="'.$row_CAROUSEL['titulo'].'" title="'.$row_CAROUSEL['titulo'].'"></li>';
+                <li><img src="https://viannainmexico.com/img/contenido/'.$tabla.'/'.$row_CAROUSEL['id'].'-xs.jpg" alt="'.$row_CAROUSEL['titulo'].'" title="'.$row_CAROUSEL['titulo'].'"></li>';
             if ($row_CAROUSEL['url']=='') {
               echo '
-                <li><img src="http://viannainmexico.com/img/contenido/'.$tabla.'/'.$row_CAROUSEL['id'].'-orig.jpg" alt="'.$row_CAROUSEL['titulo'].'"  title="'.$row_CAROUSEL['titulo'].'" data-description="'.$row_CAROUSEL['txt'].'" data-texteffect="Red box"></li>';
+                <li><img src="https://viannainmexico.com/img/contenido/'.$tabla.'/'.$row_CAROUSEL['id'].'-orig.jpg" alt="'.$row_CAROUSEL['titulo'].'"  title="'.$row_CAROUSEL['titulo'].'" data-description="'.$row_CAROUSEL['txt'].'" data-texteffect="Red box"></li>';
             }else{
               if (strpos($row_CAROUSEL['url'], $dominio)) {
                 echo '
-                <li><a href="'.$row_CAROUSEL['url'].'"><img src="http://viannainmexico.com/img/contenido/'.$tabla.'/'.$row_CAROUSEL['id'].'-orig.jpg" alt="'.$row_CAROUSEL['titulo'].'"  title="'.$row_CAROUSEL['titulo'].'" data-description="'.$row_CAROUSEL['txt'].'" data-texteffect="Red box"></a></li>';
+                <li><a href="'.$row_CAROUSEL['url'].'"><img src="https://viannainmexico.com/img/contenido/'.$tabla.'/'.$row_CAROUSEL['id'].'-orig.jpg" alt="'.$row_CAROUSEL['titulo'].'"  title="'.$row_CAROUSEL['titulo'].'" data-description="'.$row_CAROUSEL['txt'].'" data-texteffect="Red box"></a></li>';
               }else{
                 echo '
-                <li><a href="'.$row_CAROUSEL['url'].'" target="_blank"><img src="http://viannainmexico.com/img/contenido/'.$tabla.'/'.$row_CAROUSEL['id'].'-orig.jpg" alt="'.$row_CAROUSEL['titulo'].'"  title="'.$row_CAROUSEL['titulo'].'" data-description="'.$row_CAROUSEL['txt'].'" data-texteffect="Red box"></a></li>';
+                <li><a href="'.$row_CAROUSEL['url'].'" target="_blank"><img src="https://viannainmexico.com/img/contenido/'.$tabla.'/'.$row_CAROUSEL['id'].'-orig.jpg" alt="'.$row_CAROUSEL['titulo'].'"  title="'.$row_CAROUSEL['titulo'].'" data-description="'.$row_CAROUSEL['txt'].'" data-texteffect="Red box"></a></li>';
               }
             }
           } else {
