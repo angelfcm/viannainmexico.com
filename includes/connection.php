@@ -21,9 +21,9 @@ $is_rusian_domain = false;
 
 if ($is_rusian_domain) {
 	$hostname = "viannainmexico.com";
-	$database = "viannain_site";
-	$username = "viannain_efra";
-	$password = "TD!C]z3,H_Ts";
+	$database = "siemprep_viannain";
+	$username = "siemprep_viannain";
+	$password = "<Vianna_inmexicO14/>";
 }
 else {
 	$hostname = "localhost";
