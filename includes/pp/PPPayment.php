@@ -2,20 +2,6 @@
 require_once '../includes/connection.php';
 require_once '../includes/config.php';
 
-define('PP_SANDBOX_MODE', false); // Be careful when putting it as FALSE (LIVE/REAL MODE)
-
-define('PP_CLIENT_LIVE', 'AStloIVNvDZ_n30kBiHycjf4pK7hSk0dT6S3-3ihb-ZpWB2pPjYb7RGQv9QE2NtHPS3pKBfK5J8KYJfc');
-define('PP_SECRET_LIVE', 'EIz8o1Jgd-NYKFXc_54DoU14WTYqtDBPXqGT8vcOYeW8jlHF7O1fwx2xdeRUlsE_K9r94tYzmFXxUncH');
-define('PAYPAL_API_LIVE', 'https://api.paypal.com/v1');
-
-define('PP_CLIENT_SANDBOX', 'AaQV1ugAFd1HooSimvoJfhI1ofD-thcNAGaHukdRMtGmPKVVGDAaKdTTQtUqEgGSes0ld3QraEpxYo2i');
-define('PP_SECRET_SANDBOX', 'EJYzT_qWLIvoQgQToFcY1kaEdkuIaxFra6rQ3AaCnM9JmWTryyk9FyJs11jL0Knk6WsBWpxg2VWNS_fP');
-define('PAYPAL_API_SANDBOX', 'https://api.sandbox.paypal.com/v1');
-
-define('PP_CLIENT', !PP_SANDBOX_MODE ? PP_CLIENT_LIVE : PP_CLIENT_SANDBOX);
-define('PP_SECRET', !PP_SANDBOX_MODE ? PP_SECRET_LIVE : PP_SECRET_SANDBOX);
-define('PAYPAL_API', !PP_SANDBOX_MODE ? PAYPAL_API_LIVE : PAYPAL_API_SANDBOX);
-
 if(isset($_GET['test_auth'])) {
     echo PPPayment::requestToken() ? 1 : 0;
 }
@@ -54,7 +40,7 @@ class PPPayment {
         return $accessToken;
     }
 
-    public function createCoursesPayment($userID, array $paymentCourses, array $paymentTranslations) {
+    public function createCoursesPayment($userID, array $paymentCourses, array $paymentTranslations, $isCard) {
 
         $conn = $this->getMysqliConn();
         $user = $conn->query("SELECT * FROM usuarios WHERE id = '$userID'")->fetch_assoc();
@@ -86,7 +72,6 @@ class PPPayment {
         if (!empty($accessToken)) {
 
             $total = 0;
-            $currency = $this->currency;
             $items = [];
             $priceField = 'precio' . ($this->currency == 'USD' ? 'usd' : '');
             $courseTitleField = 'titulo' . ($this->lang == 'es' ? 'es' : 'en');
@@ -154,28 +139,56 @@ class PPPayment {
                 ]
             ];
 
-            $paymentDataJson = json_encode($paymentData);
-            $headers = array(
-                'Authorization: Bearer ' . $accessToken,
-                'Content-Type: application/json',
-                'Content-length: ' . strlen($paymentDataJson),
-            );
+            if ($isCard) {
+                $response = $this->makeRequest('GET', '/payment-experience/web-profiles');
 
-            $curl = curl_init(PAYPAL_API.'/payments/payment');
+                $webProfile = null;
+                $webProfileName = 'viannainWebProfile';
 
-            curl_setopt($curl, CURLOPT_POST, true);
-            curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-            curl_setopt($curl, CURLOPT_POSTFIELDS, $paymentDataJson);
-            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                foreach ($response as $profile) {
+                    if ($profile->name == $webProfileName) {
+                        $webProfile = $profile;
+                        break;
+                    }
+                }
 
-            $response = curl_exec($curl); 
-            curl_close($curl);
-            $response = json_decode($response);
+                if (!$webProfile) {
+                    $webProfileData = [
+                        "name" => $webProfileName,
+                        "presentation" => [
+                            "logo_image" => "https://www.paypal.com",
+                        ],
+                        "input_fields" => [
+                            "no_shipping" => 1,
+                            "address_override" => 1,
+                        ],
+                        "flow_config" => [
+                            "landing_page_type" => "billing",
+                            "bank_txn_pending_url" => "https://www.paypal.com",
+                        ],
+                    ];
+                    $webProfile = $this->makeRequest('POST', '/payment-experience/web-profiles', $webProfileData);
+                }
+
+                $paymentData['experience_profile_id'] = $webProfileData['id'];
+            }
+
+            $response = $this->makeRequest('POST', '/payments/payment', $paymentData);
    
             if (empty($response) || empty($response->id))
                 return null;
 
-            return $response->id;
+            $approvalUrl = null;
+            foreach ($response->links as $link) {
+                if ($link->rel == 'approval_url') {
+                    $approvalUrl = $link->href;
+                    break;
+                }
+            }
+            return [
+                'id' => $response->id,
+                'approval_url' => $approvalUrl,
+            ];
         } 
         else {
             return null;
@@ -240,23 +253,7 @@ class PPPayment {
                 ]
             ];
 
-            $paymentDataJson = json_encode($paymentData);
-            $headers = array(
-                'Authorization: Bearer ' . $accessToken,
-                'Content-Type: application/json',
-                'Content-length: ' . strlen($paymentDataJson),
-            );
-
-            $curl = curl_init(PAYPAL_API.'/payments/payment/' . $paymentID . '/execute');
-
-            curl_setopt($curl, CURLOPT_POST, true);
-            curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-            curl_setopt($curl, CURLOPT_POSTFIELDS, $paymentDataJson);
-            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-            
-            $response = curl_exec($curl);
-            curl_close($curl);
-            $response = json_decode($response);
+            $response = $this->makeRequest('POST', '/payments/payment/' . $paymentID . '/execute', $paymentData);
             
             $state = $response->state;
             $payerFullname =  $response->payer->payer_info->first_name . " " . $response->payer->payer_info->last_name;
@@ -298,7 +295,6 @@ class PPPayment {
                 return $localPaymentID;
             }
             else{
-
                 return 0;
             }
         }
@@ -310,5 +306,37 @@ class PPPayment {
     private function getMysqliConn() {
         global $CONEXION;
         return $CONEXION;
+    }
+
+
+    protected function makeRequest($method, $actionUrl, $data = null)
+    {
+        $accessToken = PPPayment::requestToken();
+
+        $dataJson = json_encode($data);
+        $headers = array(
+            'Authorization: Bearer ' . $accessToken,
+            'Content-Type: application/json',
+        );
+
+        if ($data) {
+            $headers []= 'Content-length: ' . strlen($dataJson);
+        }
+    
+        $curl = curl_init(PAYPAL_API.$actionUrl);
+
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        if ($method == 'POST') {
+            curl_setopt($curl, CURLOPT_POST, true);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $dataJson);
+        }
+
+        $response = curl_exec($curl); 
+
+        curl_close($curl);
+        $response = json_decode($response);
+
+        return $response;
     }
 }

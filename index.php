@@ -107,6 +107,7 @@ switch ($identificador) {
 		break;
 
 	case 14:
+		unset($_SESSION['paypal_plus']); // remove paypal date after payment fails and user is redirected here.
 		$nav3='uk-active';
 		$mensajeClase='danger';
 		$mensaje=isset($_GET['captcha_failed']) && $_GET['captcha_failed'] ? 'Error de validación captcha, intenta de nuevo.' : 'No se pudo registrar.<br>Favor de intentar de nuevo.';
@@ -128,7 +129,12 @@ switch ($identificador) {
 		include 'es/share.php';
 		break;
 
-
+	case 17:
+		$nav3='uk-active';
+		include 'includes/includes.php';
+		include 'es/pago-tarjeta.php';
+		break;
+	
 
 	case 993:
 		$id=$_GET['id'];

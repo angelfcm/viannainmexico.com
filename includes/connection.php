@@ -36,7 +36,7 @@ if(strpos($dominio, 'localhost') === 0 or strpos($ip, '192.168.') === 0){
 	$database = "viannainmexico.com";
 	$username = "root"; // cambié esto antes de poner el respositorio
 	$password = "root"; // y esto también, solo eso.
-	//$debug=1;
+	$debug=1;
 }elseif($dominio=='efra.biz'){
 	$database = "efra_vianna";
 	$username = "efra_efra";

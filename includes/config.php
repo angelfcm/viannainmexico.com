@@ -4,9 +4,26 @@
 					CONFIGURACIÓN
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  */
 
+	/** COURSES CONFIGURATION */
 	define('COURSE_TYPE_FACE_TO_FACE', 1);
 	define('COURSE_TYPE_ONLINE', 2);
 
+	/** PAYPAL CONFIGURATION */ 
+	define('PP_SANDBOX_MODE', false); // Be careful when putting it as FALSE (LIVE/REAL MODE)
+
+	define('PP_CLIENT_LIVE', 'AStloIVNvDZ_n30kBiHycjf4pK7hSk0dT6S3-3ihb-ZpWB2pPjYb7RGQv9QE2NtHPS3pKBfK5J8KYJfc');
+	define('PP_SECRET_LIVE', 'EIz8o1Jgd-NYKFXc_54DoU14WTYqtDBPXqGT8vcOYeW8jlHF7O1fwx2xdeRUlsE_K9r94tYzmFXxUncH');
+	define('PAYPAL_API_LIVE', 'https://api.paypal.com/v1');
+	
+	define('PP_CLIENT_SANDBOX', 'AaQV1ugAFd1HooSimvoJfhI1ofD-thcNAGaHukdRMtGmPKVVGDAaKdTTQtUqEgGSes0ld3QraEpxYo2i');
+	define('PP_SECRET_SANDBOX', 'EJYzT_qWLIvoQgQToFcY1kaEdkuIaxFra6rQ3AaCnM9JmWTryyk9FyJs11jL0Knk6WsBWpxg2VWNS_fP');
+	define('PAYPAL_API_SANDBOX', 'https://api.sandbox.paypal.com/v1');
+	
+	define('PP_CLIENT', !PP_SANDBOX_MODE ? PP_CLIENT_LIVE : PP_CLIENT_SANDBOX);
+	define('PP_SECRET', !PP_SANDBOX_MODE ? PP_SECRET_LIVE : PP_SECRET_SANDBOX);
+	define('PAYPAL_API', !PP_SANDBOX_MODE ? PAYPAL_API_LIVE : PAYPAL_API_SANDBOX);
+
+	/** DOMAIN CONFIGURATION */ 
 	define('IS_RUSSIAN_DOMAIN', $_SERVER["SERVER_NAME"] == 'viannainmexico.ru');
 
 	if (IS_RUSSIAN_DOMAIN) {
@@ -32,13 +49,17 @@
 	global $destinatario1;
 	global $debug;
 
-	$debug = 0;
+	$port = $_SERVER['SERVER_PORT'];
+	$dominio=$_SERVER["SERVER_NAME"] . ($port && $port != 80 && $port != 443 ? ':' . $port : '');
+	$dominio=str_replace('www.', '', $dominio);
+	$debug = strpos($dominio, 'localhost') === 0;
 
 	$Brand='ThetaHealing en Mexico';
 	$dominioString=DOMAIN;
 	$BASE_URL = "http://".DOMAIN;
-	if ($debug)
+	if ($debug) {
 		$BASE_URL = 'http://localhost:8888/'.DOMAIN;
+	}
 
 
 	$REMITENTE = $CONEXION -> query("SELECT pices,picen FROM configuracion WHERE id = 11");
@@ -68,7 +89,6 @@
 	$telefono ='3319260529';
 	$telefono1='3315896232';
 
-	$debug=($dominio=='localhost')?1:0;
 	$prodsPagina=10;
 
 	$telefonoSeparado= '(+521) '.substr($telefono, 0,2).''.substr($telefono, 2,8);

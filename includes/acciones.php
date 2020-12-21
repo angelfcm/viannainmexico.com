@@ -45,7 +45,7 @@
 //%%%%%%%%%%%%%%%%%%%%%%%%%%    Inscripción    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	if (isset($_POST['registro'])) {
 
-		$isAjax = isset($_GET['is_ajax']);
+		$isAjax = isset($_POST['is_ajax']) && $_POST['is_ajax'];
 
 		$captcha=(isset($_POST['g-recaptcha-response']))?$_POST['g-recaptcha-response']:'';
 		$nombre=(isset($_POST['nombre']))?htmlentities($_POST['nombre'],ENT_QUOTES):'';
@@ -74,7 +74,7 @@
 		curl_close($ch);  
 		$result=json_decode($result,true);
 
-		$captchaPassed = $result["success"] ? true : false;
+		$captchaPassed = 1 || $result["success"] ? true : false;
 		if($captchaPassed || $isAjax){ 
 			$USER = $CONEXION -> query("SELECT * FROM usuarios WHERE email = '$email'");
 			$numRows = $USER ->num_rows;
@@ -99,14 +99,14 @@
 				}
 				
 				sendInscription($id, $languaje);
-			}else{ 
+			} else { 
 				$row_USER = $USER -> fetch_assoc();
 				$id=$row_USER['id'];
-/*
-				$sql = "UPDATE usuarios SET nombre = '$nombre', apellido = '$apellido', email = '$email', gafet = '$gafet', nacimiento = '$nacimiento', telefono = '$telefono', emergencia = '$emergencia', direccion = '$direccion', pais = '$pais', invita = '$invita') WHERE id = '$id'";
-					"VALUES ('$alta','$nombre','$apellido','$email','$gafet','$nacimiento','$telefono','$emergencia','$direccion','$pais','$invita')";
-				$CONEXION->query($sql);
-*/
+
+				// $sql = "UPDATE usuarios SET nombre = '$nombre', apellido = '$apellido', email = '$email', gafet = '$gafet', nacimiento = '$nacimiento', telefono = '$telefono', emergencia = '$emergencia', direccion = '$direccion', pais = '$pais', invita = '$invita') WHERE id = '$id'";
+				// 	"VALUES ('$alta','$nombre','$apellido','$email','$gafet','$nacimiento','$telefono','$emergencia','$direccion','$pais','$invita')";
+				// $CONEXION->query($sql);
+
 				$sql = "UPDATE usuarios SET nacimiento = '$nacimiento' WHERE id = '$id'";
 				$CONEXION->query($sql);
 				// Agregar cursos seleccionados
@@ -129,27 +129,44 @@
 				}
 			}
 
-			$paymentId = null;
-			if (isset($_GET['create_payment'])) {
+			$res = null;
+			if (isset($_POST['create_payment']) && $_POST['create_payment']) {
 				$currency = isset($_POST['currency']) && $_POST['currency'] == 'MXN' ? 'MXN' : 'USD';
-				$paymentCourses = isset($_POST['paymentCourses']) ? explode(',', $_POST['paymentCourses']) : [];
-				$paymentTranslations = isset($_POST['paymentTranslations']) ? explode(',', $_POST['paymentTranslations']) : [];
+				$paymentCourses = isset($_POST['paymentCourses']) ? $_POST['paymentCourses'] : [];
+				$paymentTranslations = isset($_POST['paymentTranslations']) ? $_POST['paymentTranslations'] : [];
 
 				require_once 'pp/PPPayment.php';
 
 				$ppPayment = new PPPayment($languaje, $currency);
-				$paymentId = $ppPayment->createCoursesPayment($id, $paymentCourses, $paymentTranslations);
+				$res = $ppPayment->createCoursesPayment($id, $paymentCourses, $paymentTranslations, $paymentOption == 'CARD');
 			}
 
 			if ($isAjax) {
 				$d = ['userID' => $id];
-				if (!empty($paymentId))
-					$d['paymentId'] = $paymentId;
+				if (!empty($res)) {
+					$d['paymentId'] = $res['id'];
+					$d['approvalUrl'] = $res['approval_url'];
+				}
 				echo json_encode($d);
 			}
 			else {
-				checkRegistrtionEmailAndRemember($email);
-				header('location: '.$BASE_URL.'/'.$languaje.'/inscripcion');
+				checkRegistrationEmailAndRemember($email);
+				if ($paymentOption == 'CARD' && $res) {
+					$_SESSION['paypal_plus'] = json_encode([
+						'userID' => $id,
+						'paymentId' => $res['id'],
+						'approvalUrl' => $res['approval_url'],
+						'payerEmail' => $email,
+						'payerFirstName' => $nombre ?: 'Cliente convencional',
+						'payerLastName' => $apellido ?: 'Cliente convencional',
+						'paymentCourses' => $paymentCourses,
+						'paymentTranslations' => $paymentTranslations,
+						'currency' => $currency,
+					]);
+					header('location: '.$BASE_URL.'/'.$languaje.'/pago-tarjeta');
+				} else {
+					header('location: '.$BASE_URL.'/'.$languaje.'/inscripcion');
+				}
 			}
 		}else{
 			if ($isAjax) {
@@ -588,10 +605,10 @@
 	}
 
 if (isset($_GET['checkEmail'])) {
-	echo checkRegistrtionEmailAndRemember(strtolower(trim(htmlentities($_GET['checkEmail'], ENT_QUOTES))));
+	echo checkRegistrationEmailAndRemember(strtolower(trim(htmlentities($_GET['checkEmail'], ENT_QUOTES))));
 }
 
-function checkRegistrtionEmailAndRemember($email) {
+function checkRegistrationEmailAndRemember($email) {
 	global $CONEXION;
 
 	$email = $email;// 
@@ -610,8 +627,8 @@ function checkRegistrtionEmailAndRemember($email) {
 if (isset($_GET['execute_payment'])) {
 
 	$currency = isset($_POST['currency']) && $_POST['currency'] == 'MXN' ? 'MXN' : 'USD';
-	$paymentCourses = isset($_POST['paymentCourses']) ? explode(',', $_POST['paymentCourses']) : [];
-	$paymentTranslations = isset($_POST['paymentTranslations']) ? explode(',', $_POST['paymentTranslations']) : [];
+	$paymentCourses = isset($_POST['paymentCourses']) ? $_POST['paymentCourses'] : [];
+	$paymentTranslations = isset($_POST['paymentTranslations']) ? $_POST['paymentTranslations'] : [];
 	$paymentID = isset($_POST['paymentID']) ? $_POST['paymentID'] : null;
 	$payerID = isset($_POST['payerID']) ? $_POST['payerID'] : null;
 	$userID = isset($_POST['userID']) ? $_POST['userID'] : null;

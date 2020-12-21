@@ -97,3 +97,10 @@ RewriteRule ^robots.txt$                   index.php?identificador=997&languaje=
 RewriteRule ^googleca2ead9fc0f8cf01.html$  index.php?identificador=996&languaje=es
 RewriteRule ^salir.html$                   index.php?identificador=994&languaje=es
 RewriteRule ^Mi-Cuenta$                    index.php?identificador=993&languaje=es
+
+RewriteRule ^es/pago-tarjeta$         index.php?languaje=es&identificador=17&id=$1
+RewriteRule ^en/pago-tarjeta$         index.php?languaje=en&identificador=17&id=$1
+RewriteRule ^ja/pago-tarjeta$         index.php?languaje=ja&identificador=17&id=$1
+RewriteRule ^ru/pago-tarjeta$         index.php?languaje=ru&identificador=17&id=$1
+RewriteRule ^pt/pago-tarjeta$         index.php?languaje=pt&identificador=17&id=$1
+RewriteRule ^it/pago-tarjeta$         index.php?languaje=it&identificador=17&id=$1

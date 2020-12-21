@@ -1,4 +1,5 @@
 <?php  
+  unset($_SESSION['paypal_plus']); // remove paypal plus data after payment is success and user is redirected here.
   $registeredUser = null;
   $cursoasientos = [];
   $courses = $CONEXION->query("SELECT * FROM cursos ORDER BY orden")->fetch_all(MYSQLI_ASSOC);
@@ -39,7 +40,7 @@
     }
 
     if (!$exists)
-      header('location: http://viannainmexico.com/' . $languaje);
+      header('location: '.$BASE_URL.'/'.$languaje);
   }
 
   $readonlyAttr = $registeredUser != null ? 'readonly' : '';
@@ -274,8 +275,7 @@
                 <div class="uk-width-1-1 uk-margin" style="font-size: 18px !important;"><?php echo $typeOfPaymentLabel; ?></div>
                 <label><input class="uk-radio" type="radio" name="payment_option" value="DESPUES"> <?php echo $payAfterLabel; ?></label><br>
                 <label><input class="uk-radio" type="radio" name="payment_option" value="PAYPAL"> <?php echo $payWithPaypalLabel; ?></label><br>
-                <div class="uk-card uk-card-default uk-card-body uk-card-small uk-margin" id="payment-paypal-content" style="display: none">
-                </div>
+                <div class="uk-card uk-card-default uk-card-body uk-card-small uk-margin" id="payment-paypal-content" style="display: none"></div>
                 <label><input class="uk-radio" type="radio" name="payment_option" value="DEPOSITO"> <?php echo $payWithDepositLabel; ?></label><br>
                 <div class="uk-card uk-card-default uk-card-body uk-card-small uk-margin" id="payment-bank-content" style="display: none">
                     MundoTH
@@ -289,6 +289,10 @@
                 <div class="uk-card uk-card-default uk-card-body uk-card-small uk-margin" id="payment-cash-content" style="display: none; max-width:600px;">
                 <?php echo $payWithCashTxt; ?>
                 </div>
+                <label><input class="uk-radio" type="radio" name="payment_option" value="CARD"> <?php echo $payWithCardLabel; ?></label><br>
+                <div class="uk-card uk-card-default uk-card-body uk-card-small uk-margin" id="payment-card-content" style="display: none">
+                
+                </div>
               </div>
             </div>
           </fieldset>
@@ -300,15 +304,14 @@
         <div class="uk-width-3-4@s" style="margin: 0 auto" id="trans-payment-section">
           <fieldset class="uk-fieldset">
             <legend class="uk-legend color-morado uk-text-bold uk-text-uppercase  uk-text-center">TRANSLATION PAYMENT</legend>
-            <div class="uk-margin uk-width-1-1 color-morado uk-text-center">Choose one of the following options to PAY FOR TRANSLATION:</div>
+            <div class="uk-margin uk-width-1-1 color-morado uk-text-center"><?php echo $firstPaymentMethodTxt; ?></div>
             <div class="uk-margin uk-width-5-6@s" uk-grid style="margin-left: auto; margin-right: auto;">
-              <div class="uk-form-label uk-width-1-5" style="font-size: 18px !important;">Type of payment:</div>
+              <div class="uk-form-label uk-width-1-5" style="font-size: 18px !important;"><?php echo $typeOfPaymentLabel; ?></div>
               <div class="uk-form-controls uk-form-controls-text">
-                <label><input class="uk-radio" type="radio" name="trans_payment_option" value="DESPUES"> Pay after</label><br>
-                <label><input class="uk-radio" type="radio" name="trans_payment_option" value="PAYPAL"> Pay with credit or debit card</label><br>
-                <div class="uk-card uk-card-default uk-card-body" id="payment-paypal-content" style="display: none">
-                </div>
-                <label><input class="uk-radio" type="radio" name="trans_payment_option" value="DEPOSITO"> Bank transfer or deposit</label><br>
+                <label><input class="uk-radio" type="radio" name="trans_payment_option" value="DESPUES"><?php echo $payAfterLabel; ?></label><br>
+                <label><input class="uk-radio" type="radio" name="trans_payment_option" value="PAYPAL"><?php echo $payWithPaypalLabel; ?></label><br>
+                <div class="uk-card uk-card-default uk-card-body" id="payment-paypal-content" style="display: none"></div>
+                <label><input class="uk-radio" type="radio" name="trans_payment_option" value="DEPOSITO"><?php echo $payWithDepositLabel; ?></label><br>
                 <div class="uk-card uk-card-default uk-card-body" id="payment-bank-content" style="display: none">
                     MundoTH
                     <p>
@@ -317,12 +320,15 @@
                       <b class=""><?=$whatsapp?> :</b> <?=$telefonoSeparado?><br>
                     </p>
                 </div>
+                <label><input class="uk-radio" type="radio" name="payment_option" value="CARD"> <?php echo $payWithCardLabel; ?></label><br>
+                <div class="uk-card uk-card-default uk-card-body" id="payment-card-content" style="display: none"></div>
               </div>
             </div>
           </fieldset>
         </div>
         </div>
 
+        <!-- CAPTCHA PARA CONFIRMACIÓN -->
         <div class="uk-margin uk-width-1-1" id="captcha-container">
           <div class="g-recaptcha" data-sitekey="6LfemlQUAAAAAHUZ0-iNKN35hHJCCcukHimwMhVy" data-callback="captchaSuccess" data-error-callback="captchaError" data-expired-callback="captchaError"></div>
         </div>
@@ -331,23 +337,28 @@
             margin: 0 auto; /* centers de captcha */
           }
         </style>
+
+        <!-- CONTENEDOR BOTONES DE CONFIRMACIÓN -->
         <div class="uk-width-1-1 uk-text-center uk-margin">
-          <button class="uk-button uk-button-personal uk-button-large" id="send"><?php echo $enviar; ?></button>
-<?php if($languaje == 'es'): ?>
-          <div uk-grid class="uk-child-width-1-2@m" id="paypal-buttons-container">
+
+          <!-- BOTÓN DE CONFIRMACIÓN SIN PAGO INMEDIATIO -->
+          <button class="uk-button uk-button-personal uk-button-large send-button" id="generic-send-button"><?php echo $enviar; ?></button>
+
+          <!-- BOTONES DE CONFIRMACIÓN PARA PAYPAL -->
+          <div <?php echo ($languaje == 'es') ? 'uk-grid class="uk-child-width-1-2@m"' : 'class="uk-margin"'; ?> id="paypal-buttons-container">
+            <?php if($languaje == 'es'): ?>
             <div>
               <div class="uk-card uk-card-default">
                 <div class="uk-card-header">
                   <h3 class="uk-card-title" style="text-transform:uppercase;"><?php echo $pagoenpesos; ?></h3><p><?php echo $paypalPaymentIndication; ?></p>
-<?php if ($languaje == 'es'): ?>
-<span style="font-size: 70%;">(SI GRAN PARTE DEL TIEMPO VIVES Y/O HACES NEGOCIOS FUERA DE LATINOAMERICA NO APLICA PARA TI Y REQUIERES PAGAR EN DOLARES)</span>
-<?php endif; ?>
+                  <span style="font-size: 70%;">(SI GRAN PARTE DEL TIEMPO VIVES Y/O HACES NEGOCIOS FUERA DE LATINOAMERICA NO APLICA PARA TI Y REQUIERES PAGAR EN DOLARES)</span>
                 </div>
                 <div class="uk-card-body">
                   <div id="paypal-button-1" class="pp-button-container"><div class="pp-button-overlay"></div></div>
                 </div>
               </div>
             </div>
+            <?php endif; ?>
             <div>
               <div class="uk-card uk-card-default">
                 <div class="uk-card-header">
@@ -359,25 +370,42 @@
               </div>
             </div>
           </div>
-<?php else: ?>
-          <!--<div id="paypal-buttons-container">
-            <div id="paypal-button-2"></div>
-          </div>-->
-          <div id="paypal-buttons-container" class="uk-margin">
-            <div class="uk-card uk-card-default">
-              <div class="uk-card-header">
-                <h3 class="uk-card-title" style="text-transform:uppercase;"><?php echo $pagoendolares; ?></h3><p><?php echo $paypalPaymentIndication; ?></p>
+          <!-- FIN BOTONES CONFIRMACIÓN PAYPAL -->
+
+          <!-- BOTONES DE CONFIRMACIÓN PAGO INMEDIATIO CON TARJETA -->
+          <div <?php echo ($languaje == 'es') ? 'uk-grid class="uk-child-width-1-2@m"' : 'class="uk-margin"'; ?> id="card-buttons-container">
+            <?php if($languaje == 'es'): ?>
+            <div>
+              <div class="uk-card uk-card-default">
+                <div class="uk-card-header">
+                  <h3 class="uk-card-title" style="text-transform:uppercase;"><?php echo $pagoenpesos; ?></h3><p><?php echo $cardPaymentIndication; ?></p>
+                  <span style="font-size: 70%;">(SI GRAN PARTE DEL TIEMPO VIVES Y/O HACES NEGOCIOS FUERA DE LATINOAMERICA NO APLICA PARA TI Y REQUIERES PAGAR EN DOLARES)</span>
+                </div>
+                <div class="uk-card-body">
+                  <button class="uk-button uk-button-personal uk-button-large send-button" data-currency="MXN"><?php echo $enviar; ?></button>
+                </div>
               </div>
-              <div class="uk-card-body">
-                <div id="paypal-button-2" class="pp-button-container"><div class="pp-button-overlay"></div></div>
+            </div>
+            <?php endif; ?>
+            <div>
+              <div class="uk-card uk-card-default">
+                <div class="uk-card-header">
+                  <h3 class="uk-card-title" style="text-transform:uppercase;"><?php echo $pagoendolares; ?></h3><p><?php echo $cardPaymentIndication; ?></p>
+                </div>
+                <div class="uk-card-body">
+                  <button class="uk-button uk-button-personal uk-button-large send-button" data-currency="USD"><?php echo $enviar; ?></button>
+                </div>
               </div>
             </div>
           </div>
-<?php endif; ?>
+          <!-- FIN BOTONES CONFIRMACIÓN TARJETA -->
+
         </div>
-        <div id="mensajes" class="uk-width-1-1">
-        </div>
-        
+        <!-- FIN CONTENEDOR BOTONES DE CONFIRMACIÓN -->
+
+        <div id="mensajes" class="uk-width-1-1"></div>
+        <input type="hidden" name="currency" value="" />
+        <input type="hidden" name="create_payment" value="0" />
       </div>
     </div>
   </form>
@@ -482,10 +510,11 @@
 
 <script>
   //Envío de registro
-  $('#send').click(function(event){
+  $('.send-button').click(function(event){
     event.preventDefault();
+    $('input[name=currency]').val($(this).data('currency'));
     if (validar()) {
-      $(this).prop("readonly",true);
+      $('.send-button').prop("disabled", true);
       $(this).html("<div uk-spinner></div>");
       $('#form').submit();
     };
@@ -611,14 +640,14 @@
 
     if (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       .test(email) == 0) {
-      alert('Introduce un email válido');
+      alert('Introduce un email válido' + email);
       return;  
     }
 
     $.get('../includes/acciones.php', {checkEmail: escape(email)}).done(function(exists){
       if (exists == 1) {
         var loc = location.href.replace(location.search, ''); // clear the query string
-        location.href = loc // reloads considering that this call set the session chekcEmail key
+        location.href = loc + '?email=' + email; // reloads considering that this call set the session chekcEmail key
       }
       else {
         $emailSection.fadeOut('slow');
@@ -628,8 +657,20 @@
 
     lastEmailRead = email;
   }
-  var $submitButton = $('#send');
+
+  // auto check email if was set initially by query url
+  <?php if($registeredUser == null): ?>
+  var matchInputEmail = location.search.match(/(\?|&)email=(.*?)(\&|$)/);
+  if (matchInputEmail && matchInputEmail[2]) {
+    var email = matchInputEmail[2];
+    $emailInput.val(email);
+    checkEmail();
+  }
+  <?php endif; ?>
+
+  var $genericSendButton = $('#generic-send-button');
   var $paypalButtonsContainer = $('#paypal-buttons-container');
+  var $cardButtonsContainer = $('#card-buttons-container');
   var $insCourseCheckboxes = $('.course-checkbox');
   var $insCourseTypeRadios = $('.course-type-radio');
  
@@ -655,9 +696,14 @@
 
   function initializeProductSection(ctx) {
     var $paymentOption = $(':radio', ctx);
-    $paymentOption.on('change', function(){updateSelectedPaymentMethod.call(this, ctx)});
-    $insCourseCheckboxes.on('change', function(){updateSelectedCourses.call(this, ctx)});
-    $insCourseTypeRadios.on('change ', function(){
+    $paymentOption.on('change', function() {
+      updateSelectedPaymentMethod.call(this, ctx);
+      updateSelectedCourses.call(this, ctx);
+    });
+    $insCourseCheckboxes.on('change', function() {
+      updateSelectedCourses.call(this, ctx);
+    });
+    $insCourseTypeRadios.on('change ', function() {
       var el = $(this).parents('.course-container').eq(0).find('[name^="curso"]')[0];
       updateSelectedCourses.call(el, ctx);
     });
@@ -669,52 +715,70 @@
 
   function captchaSuccess() {
     isCaptchaSuccess = true;
-    $('#send').attr('disabled', false);
+    $('.send-button').attr('disabled', false);
   }
 
   function captchaError() {
     isCaptchaSuccess = false;
-    $('#send').attr('disabled', true);
+    $('.send-button').attr('disabled', true);
   }
 
   function updateSelectedPaymentMethod(ctx) {
-    var $paymentPaypalContent = $('#payment-paypal-content', ctx);
+    var $paymentCoursesContent = $('#payment-paypal-content', ctx);
     var $paymentBankContent = $('#payment-bank-content', ctx);
     var $paymentCashContent = $('#payment-cash-content', ctx);
+    var $paymentCardContent = $('#payment-card-content', ctx);
 
-    $paymentPaypalContent.hide();
+    $paymentCoursesContent.hide();
     $paymentBankContent.hide();
     $paypalButtonsContainer.hide();
+    $cardButtonsContainer.hide();
     $paymentCashContent.hide();
-    $submitButton.show();
+    $genericSendButton.show();
     $captchaCt.show();
-    if (!isCaptchaSuccess) {
-      $('#send').attr('disabled', true);
-    }
 
     var opt = this.value;
     if (opt == 'PAYPAL')
-      $paymentPaypalContent.slideDown('fast');
+      $paymentCoursesContent.slideDown('fast');
     else if (opt == 'DEPOSITO')
       $paymentBankContent.slideDown('fast');
     else if (opt == 'EFECTIVO')
       $paymentCashContent.slideDown('fast');
+    else if (opt == 'CARD') {
+      $paymentCardContent.slideDown('fast');
+    }
 
     var firstOption = $('[name="payment_option"]:checked').val();
     var secondOption = $('[name="trans_payment_option"]:checked').val();
+    $('input[name=create_payment]').val(0);
 
-    if (firstOption == 'PAYPAL' || secondOption == 'PAYPAL') 
-    {
-      $submitButton.hide();
+    if (firstOption == 'PAYPAL' || secondOption == 'PAYPAL') {
+      $genericSendButton.hide();
       $paypalButtonsContainer.show();
-      $captchaCt.hide(); // doesnt need a captcha if user will pay.
-      $('#send').attr('disabled', false);
+      $captchaCt.hide(); // doesnt need a captcha if user will pay with paypal.
+    } else if (firstOption == 'CARD' || secondOption == 'CARD') {
+      $genericSendButton.hide();
+      $cardButtonsContainer.show();
+      $('input[name=create_payment]').val(1);
+    }
+  
+    if (!isCaptchaSuccess) {
+      $('.send-button').attr('disabled', true);
     }
   }
 
   function updateSelectedCourses(ctx) {
     var isTranslation = ctx == '#trans-payment-section';
-    var $paymentPaypalContent = $('#payment-paypal-content', ctx);
+    var coursesContainer = null;
+    var opt = this.value;
+    if (opt == 'PAYPAL')
+      coursesContainer  = '#payment-paypal-content';
+    else if (opt == 'CARD') {
+      coursesContainer  = '#payment-card-content';
+    } else {
+      return;
+    }
+    var $paymentCoursesContent = $(coursesContainer, ctx);
 
     var $coursesToAdd = $.map($insCourseCheckboxes.get(), function(el) {
       $('#courseTypeControlContainer' + el.value)[el.checked ? 'show' : 'hide']();
@@ -743,9 +807,9 @@
           break;
         } 
       }
-
+      var name = ctx == '#1st-payment-section' ? 'paymentCourses' : 'paymentTranslations';
       var courseHtml = '<label ' + (isPaid ? 'style="text-decoration: line-through; line-height: 2;"' : 'style="line-height: 2;"') + '>'
-        + '<input class="uk-checkbox product_checkbox" type="checkbox" name="courses[' + course.id + ']" value="'+ course.id +'" ' + (isPaid ? ' style="visibility: hidden"' : '') + '> ' 
+        + '<input class="uk-checkbox product_checkbox" type="checkbox" name="' + name + '[' + course.id + ']" value="'+ course.id +'" ' + (isPaid ? ' style="visibility: hidden"' : '') + '> ' 
         + course['titulo<?php echo $languaje; ?>']
         + ' <span style="font-size: 80%"><strong>[$'
 <?php if ($languaje == 'es'): ?>
@@ -761,7 +825,7 @@
       return courseHtml;
     });
 
-    $paymentPaypalContent.html($coursesToAdd.join('') || '<?php echo $selectAtLeastOneCourseTxt; ?>');
+    $paymentCoursesContent.html($coursesToAdd.join('') || '<?php echo $selectAtLeastOneCourseTxt; ?>');
 
     $('.product_checkbox', ctx).on('change', function() {
       if (ctx == '#1st-payment-section')
@@ -783,6 +847,26 @@
     });
   }
 
+  function getFormData(currency)
+  {
+    var paymentCourses = $.map(selectedPaymentCourses, function(c){ return c.id; });
+    var paymentTranslations = $.map(selectedPaymentTrans, function(c){ return c.id; });
+    var form = $('#form')[0];
+    var disabledInputs = $('#form :disabled'); 
+    disabledInputs.prop('disabled', false);  // Evita que se ignoren los valores de los controles deshabilitados.
+    var formData = new FormData(form);
+    var data = {
+      // paymentCourses: paymentCourses,
+      // paymentTranslations: paymentTranslations,
+      currency: currency,
+      languaje: '<?php echo $languaje; ?>',
+    };
+    formData.forEach(function(value, key){ data[key] = value; });
+    disabledInputs.prop('disabled', true);
+
+    return data;
+  }
+
   function updatePaypalButton(buttonId, currency) {
     var locale = currency == 'MXN' ? 'es_MX' : 'en_US';
     var currency = currency == 'MXN' ? 'MXN' : 'USD';
@@ -790,7 +874,7 @@
 
     paypal.Button.render({
       // Configure environment
-      env: 'production',
+      env: '<?php echo PP_SANDBOX_MODE ? 'sandbox': 'production'; ?>', // change to sandbox for test or production for real mode
       // Customize button (optional)
       locale: locale,
       style: {
@@ -802,23 +886,12 @@
       },
       // Set up a payment
       payment: function(data, actions) {
-        var paymentCourses = $.map(selectedPaymentCourses, function(c){ return c.id; });
-        var paymentTranslations = $.map(selectedPaymentTrans, function(c){ return c.id; });
-        var form = $('#form')[0];
-        var disabledInputs = $('#form :disabled'); 
-        disabledInputs.prop('disabled', false);  // Evita que se ignoren los valores de los controles deshabilitados.
-        var formData = new FormData(form);
-        var data = {
-          paymentCourses,
-          paymentTranslations,
-          currency: buttonId == '#paypal-button-1' ? 'MXN' : 'USD'
-        };
-        formData.forEach(function(value, key){ data[key] = value; });
-        disabledInputs.prop('disabled', true); 
+        var data = getFormData(currency);
         // 2. Make a request to your server
-        return actions.request.post('../includes/acciones.php?create_payment&is_ajax', data)
+        data.create_payment = 1;
+        data.is_ajax = 1;
+        return actions.request.post('../includes/acciones.php', data)
         .then(function(res) {
-          console.log(res);
           if (res.userID)
           {
             userID = res.userID;
@@ -840,49 +913,25 @@
       },
       // Execute the payment
       // 1. Add an onAuthorize callback
-      onAuthorize: function (data, actions) {
-        var paymentCourses = $.map(selectedPaymentCourses, function(c){ return c.id; });
-        var paymentTranslations = $.map(selectedPaymentTrans, function(c){ return c.id; });
+      onAuthorize: function (res, actions) {
+        var data = getFormData(currency);
+        data.paymentID = res.paymentID;
+        data.payerID =  res.payerID;
         // 2. Make a request to your server
-        return actions.request.post('../includes/acciones.php?execute_payment&is_ajax', {
-          paymentID: data.paymentID,
-          payerID:  data.payerID,
-          userID: userID,
-          languaje: '<?php echo $languaje; ?>',
-          paymentCourses,
-          paymentTranslations,
-          currency: buttonId == '#paypal-button-1' ? 'MXN' : 'USD'
-        }).then(function(res) {
-          if (res !== 1)
+        return actions.request.post('../includes/acciones.php?execute_payment&is_ajax', data)
+          .then(function(res) {
+            if (res != 1)
+              alert('Ocurrió un error inesperado, favor de intentar nuevamente.');
+            else {
+              location = "<?php echo $BASE_URL . '/' . $languaje . '/14_fallo-.html'; ?>";
+            }
+          }).catch(function (err) {
+            console.log(err);
             alert('Ocurrió un error inesperado, favor de intentar nuevamente.');
-          else location = "<?php echo $BASE_URL . '/' . $languaje . '/exito'; ?>";
-        }).catch(function (err) {
-          console.log(err);
-          alert('Ocurrió un error inesperado, favor de intentar nuevamente.');
-          logPaypalError(err, 'onAuthorize()->actions.request.post()');
-        });
+            console.log(err);
+          });
       }
     }, buttonId);
-  }
-
-  function logPaypalError(error, detalles) {
-    var formDataObject = {};
-    var disabledInputs = $('#form :disabled'); 
-    disabledInputs.prop('disabled', false);
-    var formData = new FormData(form);
-    formData.forEach(function(value, key){ formDataObject[key] = value; });
-    disabledInputs.prop('disabled', true); 
-
-    var data = {
-      error: JSON.stringify(error),
-      detalles: detalles,
-      formData: JSON.stringify(formDataObject)
-    };
-
-    $.post('/includes/pp/ErrorLogger.php', data, function(r) {
-      console.log('Error registrado con respuesta:'); 
-      console.log(r);
-    });
   }
 </script>
 <style type="text/css">
