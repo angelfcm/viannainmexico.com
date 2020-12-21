@@ -56,7 +56,7 @@
 
 	$Brand='ThetaHealing en Mexico';
 	$dominioString=DOMAIN;
-	$BASE_URL = "http://".DOMAIN;
+	$BASE_URL = ($port == 443 ? 'https://' :  'http://') . DOMAIN;
 	if ($debug) {
 		$BASE_URL = 'http://localhost:8888/'.DOMAIN;
 	}
