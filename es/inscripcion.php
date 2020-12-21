@@ -696,7 +696,6 @@
     var $paymentOption = $(':radio', ctx);
     $paymentOption.on('change', function() {
       updateSelectedPaymentMethod.call(this, ctx);
-      updateSelectedCourses.call(this, ctx);
     });
     $insCourseCheckboxes.on('change', function() {
       updateSelectedCourses.call(this, ctx);
@@ -768,17 +767,6 @@
 
   function updateSelectedCourses(ctx) {
     var isTranslation = ctx == '#trans-payment-section';
-    var coursesContainer = null;
-    var opt = this.value;
-    if (opt == 'PAYPAL')
-      coursesContainer  = '#payment-paypal-content';
-    else if (opt == 'CARD') {
-      coursesContainer  = '#payment-card-content';
-    } else {
-      return;
-    }
-    var $paymentCoursesContent = $(coursesContainer, ctx);
-
     var $coursesToAdd = $.map($insCourseCheckboxes.get(), function(el) {
       $('#courseTypeControlContainer' + el.value)[el.checked ? 'show' : 'hide']();
       var courseType = $('#courseTypeControlContainer' + el.value).find('input:checked').val();
@@ -824,8 +812,6 @@
       return courseHtml;
     });
 
-    $paymentCoursesContent.html($coursesToAdd.join('') || '<?php echo $selectAtLeastOneCourseTxt; ?>');
-
     $('.product_checkbox', ctx).on('change', function() {
       if (ctx == '#1st-payment-section')
         selectedPaymentCourses = [];
@@ -844,6 +830,8 @@
         }
       });
     });
+    var $paymentCoursesContent = $('#payment-paypal-content, #payment-card-content', ctx);
+    $paymentCoursesContent.html($coursesToAdd.join('') || '<?php echo $selectAtLeastOneCourseTxt; ?>');
   }
 
   function getFormData(currency, only)
