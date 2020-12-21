@@ -17,7 +17,7 @@ $rutaEstaPagina=$raiz.$_SERVER["REQUEST_URI"];
 $hoy=date('Y-m-d');
 $ahora=date('Y-m-d H:i:s');
 $debug=0;
-$is_rusian_domain = false;
+$is_rusian_domain = $_SERVER["SERVER_NAME"] == 'viannainmexico.ru';
 
 if ($is_rusian_domain) {
 	$hostname = "viannainmexico.com";
