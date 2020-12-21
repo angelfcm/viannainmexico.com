@@ -10,6 +10,29 @@
     $paymentCourses = $data->paymentCourses;
     $paymentTranslations = $data->paymentTranslations;
     $currency = $data->currency;
+    $languajeISOCode = null;
+    switch ($languaje) {
+      case 'es':
+        $languajeISOCode = 'es_MX';
+        break;
+      case 'en':
+        $languajeISOCode = 'en_US';
+        break;
+      case 'ja':
+        $languajeISOCode = 'ja_JP';
+        break;
+      case 'ru':
+        $languajeISOCode = 'ru_RU';
+        break;
+      case 'pt':
+        $languajeISOCode = 'pt_PT';
+        break;
+      case 'it':
+        $languajeISOCode = 'it_IT';
+        break;
+      default:
+        $languajeISOCode = 'en_US';
+    }
   } else {
     header('location: /' . $BASE_URL . '/' . $languaje);
   }
@@ -34,7 +57,7 @@
     <div class="uk-card-header">
       <div class="uk-card-body">
         <div id="ppplus"></div>
-        <button type="submit" id="continueButton"  onclick="confirm();" class="uk-button uk-button-personal uk-button-large"><?php echo $enviar; ?></button>
+        <button type="submit" id="continueButton"  onclick="confirm();" class="uk-button uk-button-personal uk-button-large"><?php echo $pagar; ?></button>
       </div>
     </div>
   </div>
@@ -57,6 +80,7 @@
       "payerLastName": "<?php echo $payerLastName; ?>",
       "payerTaxId": "",
       "mode": "<?php echo PP_SANDBOX_MODE ? 'sandbox' : 'live'; ?>",
+      "language": "<?php echo $languajeISOCode; ?>",
     });
     window.clickPaypalPlusButton = false;
     // Register postMessage Listener for the iframe.

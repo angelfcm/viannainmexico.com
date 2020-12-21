@@ -382,7 +382,7 @@
                   <span style="font-size: 70%;">(SI GRAN PARTE DEL TIEMPO VIVES Y/O HACES NEGOCIOS FUERA DE LATINOAMERICA NO APLICA PARA TI Y REQUIERES PAGAR EN DOLARES)</span>
                 </div>
                 <div class="uk-card-body">
-                  <button class="uk-button uk-button-personal uk-button-large send-button" data-currency="MXN"><?php echo $enviar; ?></button>
+                  <button class="uk-button uk-button-personal uk-button-large send-button" data-currency="MXN"><?php echo $pagar; ?></button>
                 </div>
               </div>
             </div>
@@ -393,7 +393,7 @@
                   <h3 class="uk-card-title" style="text-transform:uppercase;"><?php echo $pagoendolares; ?></h3><p><?php echo $cardPaymentIndication; ?></p>
                 </div>
                 <div class="uk-card-body">
-                  <button class="uk-button uk-button-personal uk-button-large send-button" data-currency="USD"><?php echo $enviar; ?></button>
+                  <button class="uk-button uk-button-personal uk-button-large send-button" data-currency="USD"><?php echo $pagar; ?></button>
                 </div>
               </div>
             </div>
