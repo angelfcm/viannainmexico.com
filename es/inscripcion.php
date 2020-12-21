@@ -681,9 +681,7 @@
     updateSelectedPaymentMethod('#trans-payment-section');
     updateSelectedCourses('#1st-payment-section');
     updateSelectedCourses('#trans-payment-section');
-    <?php if ($languaje == 'es'): ?>
     updatePaypalButton('#paypal-button-1', 'MXN');
-    <?php endif; ?>
     updatePaypalButton('#paypal-button-2', 'USD');
 
     $('.pp-button-overlay').on('mousedown', function() {
@@ -731,6 +729,7 @@
 
     $paymentCoursesContent.hide();
     $paymentBankContent.hide();
+    $paymentCardContent.hide();
     $paypalButtonsContainer.hide();
     $cardButtonsContainer.hide();
     $paymentCashContent.hide();
@@ -847,21 +846,31 @@
     });
   }
 
-  function getFormData(currency)
+  function getFormData(currency, only)
   {
-    var paymentCourses = $.map(selectedPaymentCourses, function(c){ return c.id; });
-    var paymentTranslations = $.map(selectedPaymentTrans, function(c){ return c.id; });
     var form = $('#form')[0];
     var disabledInputs = $('#form :disabled'); 
     disabledInputs.prop('disabled', false);  // Evita que se ignoren los valores de los controles deshabilitados.
     var formData = new FormData(form);
     var data = {
-      // paymentCourses: paymentCourses,
-      // paymentTranslations: paymentTranslations,
       currency: currency,
       languaje: '<?php echo $languaje; ?>',
     };
-    formData.forEach(function(value, key){ data[key] = value; });
+    formData.forEach(function(value, key) {
+      if (only) {
+        var ignore = true;
+        for (var i = 0; i < only.length; i++) {
+          if (key.replace(/\[.*/, '') == only[i]) {
+            ignore = false;
+            break;
+          }
+        }
+        if (ignore) {
+          return;
+        }
+      }
+      data[key] = value;
+    });
     disabledInputs.prop('disabled', true);
 
     return data;
@@ -869,9 +878,7 @@
 
   function updatePaypalButton(buttonId, currency) {
     var locale = currency == 'MXN' ? 'es_MX' : 'en_US';
-    var currency = currency == 'MXN' ? 'MXN' : 'USD';
     var userID = null;
-
     paypal.Button.render({
       // Configure environment
       env: '<?php echo PP_SANDBOX_MODE ? 'sandbox': 'production'; ?>', // change to sandbox for test or production for real mode
@@ -886,11 +893,12 @@
       },
       // Set up a payment
       payment: function(data, actions) {
+        $('input[name=currency]').val(currency);
         var data = getFormData(currency);
         // 2. Make a request to your server
         data.create_payment = 1;
         data.is_ajax = 1;
-        return actions.request.post('../includes/acciones.php', data)
+        return actions.request.post('../includes/acciones.php?create_payment', data)
         .then(function(res) {
           if (res.userID)
           {
@@ -914,11 +922,13 @@
       // Execute the payment
       // 1. Add an onAuthorize callback
       onAuthorize: function (res, actions) {
-        var data = getFormData(currency);
+        var data = getFormData(currency, ['languaje', 'paymentCourses', 'paymentTranslations']);
         data.paymentID = res.paymentID;
-        data.payerID =  res.payerID;
+        data.payerID = res.payerID;
+        data.languaje = data.languaje;
+        data.userID = userID;
         // 2. Make a request to your server
-        return actions.request.post('../includes/acciones.php?execute_payment&is_ajax', data)
+        return actions.request.post('../includes/acciones.php?execute_payment', data)
           .then(function(res) {
             if (res != 1)
               alert('Ocurrió un error inesperado, favor de intentar nuevamente.');
