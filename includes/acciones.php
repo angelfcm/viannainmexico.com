@@ -106,8 +106,9 @@
 				// $sql = "UPDATE usuarios SET nombre = '$nombre', apellido = '$apellido', email = '$email', gafet = '$gafet', nacimiento = '$nacimiento', telefono = '$telefono', emergencia = '$emergencia', direccion = '$direccion', pais = '$pais', invita = '$invita') WHERE id = '$id'";
 				// 	"VALUES ('$alta','$nombre','$apellido','$email','$gafet','$nacimiento','$telefono','$emergencia','$direccion','$pais','$invita')";
 				// $CONEXION->query($sql);
-
-				$sql = "UPDATE usuarios SET nacimiento = '$nacimiento' WHERE id = '$id'";
+				if ($nacimiento) {
+					$sql = "UPDATE usuarios SET nacimiento = '$nacimiento' WHERE id = '$id'";
+				}
 				$CONEXION->query($sql);
 				// Agregar cursos seleccionados
 				$CONSULTA1 = $CONEXION -> query("SELECT id FROM cursos");
@@ -123,7 +124,23 @@
 							$insertar = $CONEXION->query($sql);
 						}
 						else {
-							$CONEXION -> query("UPDATE cursoasientos SET tipo = $courseType, traductor = '$traductor', material = '$material', metodo1 = '$paymentOption', translation_payment_option = '$translationPaymentOption' WHERE curso = $curso and usuario = $id");
+							$setSql = '';
+							if ($courseType) {
+								$setSql .= "tipo = '$courseType'";
+							}
+							if ($traductor) {
+								$setSql .= ", traductor = '$traductor'";
+							}
+							if ($material) {
+								$setSql .= ", material = '$material'";
+							}
+							if ($paymentOption) {
+								$setSql .= ", metodo1 = '$paymentOption'";
+							}
+							if ($translationPaymentOption) {
+								$setSql .= ", translation_payment_option = '$translationPaymentOption'";
+							}
+							$CONEXION -> query("UPDATE cursoasientos SET $setSql WHERE curso = $curso and usuario = $id");
 						}
 					}
 				}

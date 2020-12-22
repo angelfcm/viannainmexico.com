@@ -515,6 +515,7 @@
     $('input[name=currency]').val($(this).data('currency'));
     if (validar()) {
       $('.send-button').prop("disabled", true);
+      $('#form :disabled').prop('disabled', false);
       $(this).html("<div uk-spinner></div>");
       $('#form').submit();
     };
