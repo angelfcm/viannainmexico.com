@@ -2,7 +2,7 @@
 
 $formData = $_POST['formData'];
 $detalles = $_POST['detalles'];
-$error = $_POST['error'];
+$error = json_encode($_POST['error']);
 $date = date('d/m/Y h:i:s a');
 
 $content = "

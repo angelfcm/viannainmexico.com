@@ -116,7 +116,8 @@
     }
 
     function success(res) {
-      return $.post('../includes/acciones.php?execute_payment&is_ajax', {
+      var generalErr = 'Ocurrió un error inesperado, favor de intentar nuevamente.';
+      var data = {
         paymentID: '<?php echo $paymentId; ?>',
         payerID:  res.payer.payer_info.payer_id,
         userID: '<?php echo $userID; ?>',
@@ -124,12 +125,16 @@
         paymentCourses: <?php echo json_encode($paymentCourses); ?>,
         paymentTranslations: <?php echo json_encode($paymentTranslations); ?>,
         currency: '<?php echo $currency; ?>',
-      }).then(function(res) {
-        if (res != 1)
+      };
+      return $.post('../includes/acciones.php?execute_payment&is_ajax', data).then(function(res) {
+        if (res != 1) {
+          $.post('../includes/pp/ErrorLogger.php', {detalles: res, error: generalErr, formData: data});
           alert('Ocurrió un error inesperado, favor de intentar nuevamente.');
+        }
         else location = "<?php echo $BASE_URL . '/' . $languaje . '/exito'; ?>";
       }).catch(function (err) {
         console.log(err);
+        $.post('../includes/pp/ErrorLogger.php', {detalles: res, error: err.message || generalErr, formData: data});
         alert('Ocurrió un error inesperado, favor de intentar nuevamente.');
       });
     }
