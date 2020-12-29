@@ -205,7 +205,7 @@ class PPPayment {
             return 0;
 
         // Sets the exiting courses that correspond with requested courses or translation courses.
-        $userCourses = $conn->query("SELECT c.* FROM cursoasientos cu LEFT JOIN cursos c ON c.id = cu.curso WHERE usuario = " . $user['id'])->fetch_all(MYSQLI_ASSOC);
+        $userCourses = $conn->query("SELECT c.*, cu.metodo1 FROM cursoasientos cu LEFT JOIN cursos c ON c.id = cu.curso WHERE usuario = " . $user['id'])->fetch_all(MYSQLI_ASSOC);
         $paymentCourses_verified = [];
         $paymentTranslations_verified = [];
         
@@ -268,15 +268,13 @@ class PPPayment {
                     VALUES  ('$userID', '$currency', '$payerFullname', '$payerEmail', '$paymentID', '$total', '$createdAt')";
 
                 if ($conn->query($sql)) {
-
+                    $estatus_details = 'Pago con ' . ($pCourse['metodo1'] == 'CARD' ? 'Tarjeta' : 'Cuenta PayPal') . ' (' . date("d-M-y h:ia") . ')';
                     $localPaymentID = $conn->insert_id;
-                    $estatus_details = 'Pagado con Paypal (' . date("d-M-y h:ia") . ')';
                     foreach($paymentCourses_verified as $pCourse) {
                         $courseID = $pCourse['id'];
                         $priceInt = (int) $pCourse['precio']; // because last programmer sets the db column type as INT and seems there is no problem by the client yet.
-
                         $sql = "UPDATE `cursoasientos` SET
-                            estatus=1, estatus_details='$estatus_details', metodo1='PAYPAL', pago1='$priceInt', payment_id='$localPaymentID'
+                            estatus=1, estatus_details='$estatus_details', pago1='$priceInt', payment_id='$localPaymentID'
                             WHERE curso='$courseID' AND usuario='$userID' ORDER BY id DESC LIMIT 1"; // the order and limit is to ensure that only the last course for that user is affected.
 
                         $conn->query($sql);
@@ -284,9 +282,8 @@ class PPPayment {
                     foreach($paymentTranslations_verified as $pTransCourse) {
                         $courseID = $pTransCourse['id'];
                         $priceInt = (int) $pTransCourse['precio_traduccion_usd']; // because last programmer sets the db column type as INT and seems there is no problem by the client yet.
-
                         $sql = "UPDATE `cursoasientos` SET
-                            translation_status=1, estatus_details='$estatus_details', translation_payment_option='PAYPAL', pagot='$priceInt', translation_payment_id='$localPaymentID'
+                            translation_status=1, estatus_details='$estatus_details', pagot='$priceInt', translation_payment_id='$localPaymentID'
                             WHERE curso='$courseID' AND usuario='$userID' ORDER BY id DESC LIMIT 1";
                         $conn->query($sql);
                     }       
