@@ -1,7 +1,7 @@
 <?php
 
-$formData = $_POST['formData'];
-$detalles = $_POST['detalles'];
+$formData = json_encode($_POST['formData']);
+$detalles = json_encode($_POST['detalles']);
 $error = json_encode($_POST['error']);
 $date = date('d/m/Y h:i:s a');
 

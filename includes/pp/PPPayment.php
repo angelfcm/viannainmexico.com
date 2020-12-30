@@ -223,6 +223,8 @@ class PPPayment {
         }
   
         $accessToken = PPPayment::requestToken();
+        $paymentData = null;
+        $response = null;
 
         if (!empty($accessToken)) {
 
@@ -287,17 +289,20 @@ class PPPayment {
                             WHERE curso='$courseID' AND usuario='$userID' ORDER BY id DESC LIMIT 1";
                         $conn->query($sql);
                     }       
-                }        
+                }
 
                 return $localPaymentID;
             }
-            else{
-                return 0;
-            }
         }
-        else {
-            return 0;
-        }
+        $errData = [
+            'paymentCourses_verified' => $paymentCourses_verified,
+            'paymentTranslations_verified' => $paymentTranslations_verified,
+            'paymentData' => $paymentData,
+            'response' => $response,
+            'date' => date("d-M-y h:i:s"),
+        ];
+        file_put_contents('errores_paypal.txt', "\n\n==================\nPAYPAL PAYMENT FAILED:\n" . json_encode($errData), FILE_APPEND);
+        return 0;
     }
 
     private function getMysqliConn() {

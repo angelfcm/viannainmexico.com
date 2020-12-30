@@ -652,7 +652,7 @@ if (isset($_GET['execute_payment'])) {
 	$languaje=  isset($_POST['languaje']) ? $_POST['languaje'] : null;
 
 	if (empty($paymentID) || empty($payerID) || empty($userID) || empty($languaje)) {
-		http_response_code(500);
+		http_response_code(422);
 		echo 0;
 		exit;
 	}
@@ -661,9 +661,9 @@ if (isset($_GET['execute_payment'])) {
 	$ppPayment = new PPPayment($languaje, $currency);
 	
 	$localPaymentID = $ppPayment->executeCoursesPayment($userID, $paymentCourses, $paymentTranslations, $paymentID, $payerID);
-	
+
 	if (!$localPaymentID)
-		http_response_code(500);
+		http_response_code(422);
 	else {
 		sendPPPaymentNotification($userID, $localPaymentID);
 	}
